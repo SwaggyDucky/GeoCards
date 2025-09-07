@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react"; // add useRef
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { MapContainer, GeoJSON } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 /**
@@ -35,80 +36,27 @@ function validItems(items) {
   return (items || []).filter((it) => Array.isArray(it.images) && it.images.length > 0);
 }
 
-// --- Country name normalization & aliases ---
-const ALIASES = new Map(Object.entries({
-  "united states of america": "united states",
-  "usa": "united states",
-  "us": "united states",
-  "russian federation": "russia",
-  "republic of korea": "south korea",
-  "korea, republic of": "south korea",
-  "korea (republic of)": "south korea",
-  "korea, democratic people's republic of": "north korea",
-  "democratic people's republic of korea": "north korea",
-  "syrian arab republic": "syria",
-  "czech republic": "czechia",
-  "swaziland": "eswatini",
-  "cabo verde": "cape verde",
-  "myanmar": "burma",
-  "ivory coast": "cote d'ivoire",
-  "côte d’ivoire": "cote d'ivoire",
-  "lao people's democratic republic": "laos",
-  "plurinational state of bolivia": "bolivia",
-  "islamic republic of iran": "iran",
-  "united republic of tanzania": "tanzania",
-  "republic of moldova": "moldova",
-  "macedonia": "north macedonia",
-  "bosnia & herzegovina": "bosnia and herzegovina"
-}));
-
-function stripDiacritics(s) {
-  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-function normalizeCountryName(name) {
-  if (!name) return "";
-  let s = String(name).trim().toLowerCase();
-  s = stripDiacritics(s)
-    .replace(/\s+/g, " ")
-    .replace(/[^a-z'\s-]/g, "");
-  if (ALIASES.has(s)) s = ALIASES.get(s);
-  return s;
-}
-
-function pickQuestion(dataset, excludeCountry = null, usedImagesByCountry = new Map()) {
+function pickQuestion(dataset) {
+  // Candidates must have at least 3 distinct item types with >=1 image each
   const candidates = (dataset || []).filter((entry) => validItems(entry.items).length >= 3);
-  if (!candidates.length) return null;
-
-  // Prefer a different country than the previous one (when possible)
-  let pool = candidates;
-  if (excludeCountry && candidates.length > 1) {
-    pool = candidates.filter(
-      (c) => normalizeCountryName(c.country) !== normalizeCountryName(excludeCountry)
-    );
-    if (!pool.length) pool = candidates; // fallback
+  if (candidates.length === 0) {
+    return null; // caller will handle
   }
 
-  const correct = pool[Math.floor(Math.random() * pool.length)];
+  const correct = candidates[Math.floor(Math.random() * candidates.length)];
 
-  // Pick 3 DISTINCT item types, then one random image from each (without repeating until all used)
+  // Pick 3 DISTINCT item types, then pick one random image from each type
   const itemPool = shuffleArray(validItems(correct.items));
   const chosenItems = itemPool.slice(0, 3);
-
-  const usedForCountry = usedImagesByCountry.get(correct.country) || new Set();
   const images = chosenItems.map((it) => {
-    const imgs = shuffleArray(it.images);
-    let choice = imgs.find((u) => !usedForCountry.has(`${it.type}|${u}`));
-    if (!choice) {
-      for (const u of it.images) usedForCountry.delete(`${it.type}|${u}`); // reset cycle for this item type
-      choice = imgs[0];
-    }
-    usedForCountry.add(`${it.type}|${choice}`);
-    return { url: choice, type: it.type };
+    const img = it.images[Math.floor(Math.random() * it.images.length)];
+    return { url: img, type: it.type };
   });
-  usedImagesByCountry.set(correct.country, usedForCountry);
 
-  return { correctCountry: correct.country, images };
+  return {
+    correctCountry: correct.country,
+    images, // [{url, type}]
+  };
 }
 
 export default function GeoguessrFlashcards() {
@@ -117,12 +65,13 @@ export default function GeoguessrFlashcards() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [question, setQuestion] = useState(null);
+    const [question, setQuestion] = useState(null);
   const [selected, setSelected] = useState(null); // string | null (clicked country name)
   const [isCorrect, setIsCorrect] = useState(null); // boolean | null
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState(0);
-  const [usedImagesByCountry] = useState(() => new Map());
+  const mapRef = useRef(null);
+  const leftRef = useRef(null);
 
 
   // Load dataset + world geojson on mount
@@ -141,7 +90,7 @@ export default function GeoguessrFlashcards() {
         if (!alive) return;
         setData(dataJson);
         setWorldGeo(geoJson);
-        const q = pickQuestion(dataJson, null, usedImagesByCountry);
+        const q = pickQuestion(dataJson);
         setQuestion(q);
       } catch (e) {
         setError(e.message || String(e));
@@ -152,17 +101,35 @@ export default function GeoguessrFlashcards() {
     return () => { alive = false; };
   }, []);
 
-  const questionRef = useRef(null);
-  useEffect(() => { questionRef.current = question; }, [question]);
+  // Fit the map to the full world bounds when GeoJSON loads
+  useEffect(() => {
+    if (!mapRef.current || !leftRef.current) return;
+
+    const ro = new ResizeObserver(() => {
+      mapRef.current && mapRef.current.invalidateSize();
+    });
+
+    ro.observe(leftRef.current);
+
+    const onResize = () => mapRef.current && mapRef.current.invalidateSize();
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', onResize);
+    };
+  }, [worldGeo]); // run once after geo loads
+
+  useEffect(() => {
+  if (mapRef.current) mapRef.current.invalidateSize();
+}, [question]);
+
+  const allCountries = useMemo(() => (data ? getCountries(data) : []), [data]);
 
   const handleCountryClick = (countryName) => {
-    const q = questionRef.current;
-    if (selected || !q) return;
-
+    if (selected || !question) return;
     setSelected(countryName);
-
-    // (optional) normalizeCountryName(...) if you added normalization
-    const correct = countryName === q.correctCountry;
+    const correct = countryName === question.correctCountry;
     setIsCorrect(correct);
     setAnswered((n) => n + 1);
     if (correct) setScore((s) => s + 1);
@@ -170,8 +137,7 @@ export default function GeoguessrFlashcards() {
 
   const nextQuestion = () => {
     if (!data) return;
-    const prev = question?.correctCountry || null;
-    const q = pickQuestion(data, prev, usedImagesByCountry);
+    const q = pickQuestion(data);
     setQuestion(q);
     setSelected(null);
     setIsCorrect(null);
@@ -208,14 +174,10 @@ export default function GeoguessrFlashcards() {
   // Style for each country polygon based on selection state
   const getFeatureStyle = (feature) => {
     const name = feature?.properties?.[COUNTRY_PROP];
-    const isSelected =
-      normalizeCountryName(name) === normalizeCountryName(selected);
-    const isCorrectCountry =
-      normalizeCountryName(name) === normalizeCountryName(question.correctCountry)
     const base = { weight: 1, color: BASE_STROKE, fillColor: "#9CA3AF", fillOpacity: 0.15 };
     if (!selected) return base;
 
-    if (isSelected) {
+    if (name === selected) {
       return {
         ...base,
         fillColor: isCorrect ? CORRECT_FILL : WRONG_FILL,
@@ -225,7 +187,7 @@ export default function GeoguessrFlashcards() {
       };
     }
 
-    if (!isCorrect && isCorrectCountry) {
+    if (!isCorrect && name === question.correctCountry) {
       return { ...base, fillColor: CORRECT_FILL, fillOpacity: 0.35, color: CORRECT_STROKE, weight: 2, dashArray: "3" };
     }
 
@@ -254,7 +216,7 @@ export default function GeoguessrFlashcards() {
 
   return (
     <div className="h-screen w-full bg-gray-50 text-gray-900 overflow-hidden">
-      <div className="mx-auto max-w-7xl h-full p-4 md:p-6 flex flex-col">
+      <div className="w-full h-full p-4 md:p-6 flex flex-col">
         {/* Header */}
         <header className="flex items-center justify-between mb-3">
           <div>
@@ -274,28 +236,35 @@ export default function GeoguessrFlashcards() {
         </header>
 
         {/* Main content: two columns on md+; single column on mobile */}
-        <div className="grid grid-rows-[auto,1fr] md:grid-rows-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
+        <div className="grid grid-rows-[auto,1fr] md:grid-rows-1 md:grid-cols-[auto,1fr] gap-4 flex-1 min-h-0">
           {/* Left: Clue cards */}
-          <div className="rounded-2xl bg-white shadow-sm border p-3 md:p-4 flex flex-col h-full">
+          <div ref={leftRef} className="rounded-2xl bg-white shadow-sm border p-3 md:p-4 flex flex-col h-full">
             {/* Scrollable image column so controls stay visible */}
-            <div className="grid grid-cols-1 gap-3 flex-1 overflow-auto pr-1">
+            <div className="mt-3 bg-white pt-2">
               {question.images.map((img, idx) => (
-                <div key={idx} className="relative h-40 md:h-44 lg:h-48 overflow-hidden rounded-xl border bg-gray-100">
-                  <img
-                    src={img.url}
-                    alt={`Clue ${idx + 1} — ${img.type}`}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-xs px-2 py-1">
-                    {img.type.replaceAll("_", " ")}
-                  </div>
+              <div
+                key={idx}
+                className="
+                  relative aspect-[4/3]
+                  w-[min(100%,calc((100vh-240px)/3*4/3))]
+                  overflow-hidden rounded-xl border bg-gray-100
+                "
+              >
+                <img
+                  src={img.url}
+                  alt={`Clue ${idx + 1} — ${img.type}`}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-xs px-2 py-1">
+                  {img.type.replaceAll("_", " ")}
                 </div>
+              </div>
               ))}
             </div>
 
             {/* Feedback + Controls (sticky at bottom of card) */}
-            <div className="mt-3 sticky bottom-0 bg-white pt-2">
+            <div className="mt-3 bg-white pt-2">
               <div className="flex flex-col sm:flex-row items-center gap-3 sm:justify-between">
                 <div className="min-h-[1.25rem] text-sm">
                   {selected && (
@@ -315,18 +284,18 @@ export default function GeoguessrFlashcards() {
             </div>
           </div>
 
-          {/* Right: Map only polygons, no basemap */}
-          <div className="rounded-2xl bg-white shadow-sm border overflow-hidden min-h-[300px]">
+          {/* Right: Map */}
+          <div className="rounded-2xl bg-white shadow-sm border overflow-hidden min-h-[300px] min-w-0">
             <MapContainer
+              whenCreated={(map) => (mapRef.current = map)}
               center={[20, 0]}
               zoom={2}
+              minZoom={1}
               className="h-full w-full"
               scrollWheelZoom={true}
-              worldCopyJump={true}
               style={{ background: "transparent" }}
             >
-              {/* No <TileLayer /> keeps the map clean (no lakes/roads). */}
-              <GeoJSON data={worldGeo} style={getFeatureStyle} onEachFeature={onEachCountry} />
+              <GeoJSON key={question?.correctCountry || "init"} data={worldGeo} style={getFeatureStyle} onEachFeature={onEachCountry} />
             </MapContainer>
           </div>
         </div>

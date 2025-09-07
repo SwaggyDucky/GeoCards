@@ -18,26 +18,22 @@
       {
         "type": "telephone_pole",
         "images": [
-          "/images/italy/pole1.jpg",
-          "/images/italy/pole2.jpg",
-          "/images/italy/pole3.jpg",
-          "/images/italy/pole4.jpg",
-          "/images/italy/pole5.jpg",
-          "/images/italy/pole6.jpg"
+          "/images/italy/pole1.png",
+          "/images/italy/pole2.png"
         ]
       },
       {
         "type": "crosswalk",
         "images": [
-          "/images/italy/crosswalk1.jpg",
-          "/images/italy/crosswalk2.jpg"
+          "/images/italy/crosswalk1.png",
+          "/images/italy/crosswalk2.png"
         ]
       },
       {
         "type": "highway_marker",
         "images": [
-          "/images/italy/hwy1.jpg",
-          "/images/italy/hwy2.jpg"
+          "/images/italy/hwy1.png",
+          "/images/italy/hwy2.png"
         ]
       }
     ]
@@ -48,9 +44,9 @@
       {
         "type": "bollard",
         "images": [
-          "/images/japan/bollard1.jpg",
-          "/images/japan/bollard2.jpg",
-          "/images/japan/bollard3.jpg"
+          "/images/japan/bollard1.png",
+          "/images/japan/bollard2.png",
+          "/images/japan/bollard3.png"
         ]
       },
       {
@@ -216,12 +212,8 @@
       {
         "type": "telephone_pole",
         "images": [
-          "/images/Brazil/pole1.jpg",
-          "/images/Brazil/pole2.jpg",
-          "/images/Brazil/pole3.jpg",
-          "/images/Brazil/pole4.jpg",
-          "/images/Brazil/pole5.jpg",
-          "/images/Brazil/pole6.jpg"
+          "/images/brazil/pole (1).png",
+          "/images/brazil/pole (2).png"
         ]
       },
       {
