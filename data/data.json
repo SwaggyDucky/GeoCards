@@ -1,0 +1,281 @@
+[
+  {
+    "country": "Italy",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/italy/ItalyBollard1.png",
+          "/images/italy/ItalyBollard2.png",
+          "/images/italy/ItalyBollard3.png",
+          "/images/italy/ItalyBollard4.png",
+          "/images/italy/ItalyBollard5.png",
+          "/images/italy/ItalyBollard6.png",
+          "/images/italy/ItalyBollard7.png",
+          "/images/italy/ItalyBollard8.png"
+        ]
+      },
+      {
+        "type": "telephone_pole",
+        "images": [
+          "/images/italy/pole1.png",
+          "/images/italy/pole2.png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/italy/crosswalk1.png",
+          "/images/italy/crosswalk2.png"
+        ]
+      },
+      {
+        "type": "highway_marker",
+        "images": [
+          "/images/italy/hwy1.png",
+          "/images/italy/hwy2.png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Japan",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/japan/bollard1.png",
+          "/images/japan/bollard2.png",
+          "/images/japan/bollard3.png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/japan/crosswalk1.jpg",
+          "/images/japan/crosswalk2.jpg"
+        ]
+      },
+      {
+        "type": "stop_sign",
+        "images": [
+          "/images/japan/stop1.jpg"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Russia",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Russia/ItalyBollard1.png",
+          "/images/Russia/ItalyBollard2.png",
+          "/images/Russia/ItalyBollard3.png",
+          "/images/Russia/ItalyBollard4.png",
+          "/images/Russia/ItalyBollard5.png",
+          "/images/Russia/ItalyBollard6.png",
+          "/images/Russia/ItalyBollard7.png",
+          "/images/Russia/ItalyBollard8.png"
+        ]
+      },
+      {
+        "type": "telephone_pole",
+        "images": [
+          "/images/Russia/pole1.jpg",
+          "/images/Russia/pole2.jpg",
+          "/images/Russia/pole3.jpg",
+          "/images/Russia/pole4.jpg",
+          "/images/Russia/pole5.jpg",
+          "/images/Russia/pole6.jpg"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Russia/crosswalk1.jpg",
+          "/images/Russia/crosswalk2.jpg"
+        ]
+      },
+      {
+        "type": "highway_marker",
+        "images": [
+          "/images/Russia/hwy1.jpg",
+          "/images/Russia/hwy2.jpg"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Estonia",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Estonia/ItalyBollard1.png",
+          "/images/Estonia/ItalyBollard2.png",
+          "/images/Estonia/ItalyBollard3.png",
+          "/images/Estonia/ItalyBollard4.png",
+          "/images/Estonia/ItalyBollard5.png",
+          "/images/Estonia/ItalyBollard6.png",
+          "/images/Estonia/ItalyBollard7.png",
+          "/images/Estonia/ItalyBollard8.png"
+        ]
+      },
+      {
+        "type": "telephone_pole",
+        "images": [
+          "/images/Estonia/pole1.jpg",
+          "/images/Estonia/pole2.jpg",
+          "/images/Estonia/pole3.jpg",
+          "/images/Estonia/pole4.jpg",
+          "/images/Estonia/pole5.jpg",
+          "/images/Estonia/pole6.jpg"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Estonia/crosswalk1.jpg",
+          "/images/Estonia/crosswalk2.jpg"
+        ]
+      },
+      {
+        "type": "highway_marker",
+        "images": [
+          "/images/Estonia/hwy1.jpg",
+          "/images/Estonia/hwy2.jpg"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Mexico",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Mexico/ItalyBollard1.png",
+          "/images/Mexico/ItalyBollard2.png",
+          "/images/Mexico/ItalyBollard3.png",
+          "/images/Mexico/ItalyBollard4.png",
+          "/images/Mexico/ItalyBollard5.png",
+          "/images/Mexico/ItalyBollard6.png",
+          "/images/Mexico/ItalyBollard7.png",
+          "/images/Mexico/ItalyBollard8.png"
+        ]
+      },
+      {
+        "type": "telephone_pole",
+        "images": [
+          "/images/Mexico/pole1.jpg",
+          "/images/Mexico/pole2.jpg",
+          "/images/Mexico/pole3.jpg",
+          "/images/Mexico/pole4.jpg",
+          "/images/Mexico/pole5.jpg",
+          "/images/Mexico/pole6.jpg"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Mexico/crosswalk1.jpg",
+          "/images/Mexico/crosswalk2.jpg"
+        ]
+      },
+      {
+        "type": "highway_marker",
+        "images": [
+          "/images/Mexico/hwy1.jpg",
+          "/images/Mexico/hwy2.jpg"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Brazil",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Brazil/ItalyBollard1.png",
+          "/images/Brazil/ItalyBollard2.png",
+          "/images/Brazil/ItalyBollard3.png",
+          "/images/Brazil/ItalyBollard4.png",
+          "/images/Brazil/ItalyBollard5.png",
+          "/images/Brazil/ItalyBollard6.png",
+          "/images/Brazil/ItalyBollard7.png",
+          "/images/Brazil/ItalyBollard8.png"
+        ]
+      },
+      {
+        "type": "telephone_pole",
+        "images": [
+          "/images/brazil/pole (1).png",
+          "/images/brazil/pole (2).png",
+          "/images/brazil/pole (3).png",
+          "/images/brazil/pole (4).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Brazil/crosswalk1.jpg",
+          "/images/Brazil/crosswalk2.jpg"
+        ]
+      },
+      {
+        "type": "highway_marker",
+        "images": [
+          "/images/Brazil/hwy1.jpg",
+          "/images/Brazil/hwy2.jpg"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Chile",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Chile/ItalyBollard1.png",
+          "/images/Chile/ItalyBollard2.png",
+          "/images/Chile/ItalyBollard3.png",
+          "/images/Chile/ItalyBollard4.png",
+          "/images/Chile/ItalyBollard5.png",
+          "/images/Chile/ItalyBollard6.png",
+          "/images/Chile/ItalyBollard7.png",
+          "/images/Chile/ItalyBollard8.png"
+        ]
+      },
+      {
+        "type": "telephone_pole",
+        "images": [
+          "/images/Chile/pole1.jpg",
+          "/images/Chile/pole2.jpg",
+          "/images/Chile/pole3.jpg",
+          "/images/Chile/pole4.jpg",
+          "/images/Chile/pole5.jpg",
+          "/images/Chile/pole6.jpg"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Chile/crosswalk1.jpg",
+          "/images/Chile/crosswalk2.jpg"
+        ]
+      },
+      {
+        "type": "highway_marker",
+        "images": [
+          "/images/Chile/hwy1.jpg",
+          "/images/Chile/hwy2.jpg"
+        ]
+      }
+    ]
+  } 
+  
+]
