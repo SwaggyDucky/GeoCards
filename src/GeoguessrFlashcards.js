@@ -16,8 +16,11 @@ import "leaflet/dist/leaflet.css";
  *   public/data/world.json    // GeoJSON FeatureCollection of countries
  */
 
-const GEOJSON_PATH = "/data/world.json"; // place your world geojson here
-const COUNTRY_PROP = "name"; // change to "ADMIN" if your geojson uses that
+const BASE = process.env.PUBLIC_URL || "";       // => "/GeoCards" in production, "" in dev
+const assetUrl = (p) => `${BASE}${p.startsWith("/") ? p : `/${p}`}`;
+
+const GEOJSON_PATH = assetUrl("data/world.json");
+const COUNTRY_PROP = "name"; 
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -76,29 +79,31 @@ export default function GeoguessrFlashcards() {
 
   // Load dataset + world geojson on mount
   useEffect(() => {
-    let alive = true;
-    (async () => {
-      try {
-        setLoading(true);
-        const [dataRes, geoRes] = await Promise.all([
-          fetch("/data/data.json", { cache: "no-store" }),
-          fetch(GEOJSON_PATH, { cache: "no-store" }),
-        ]);
-        if (!dataRes.ok) throw new Error(`Failed data.json: ${dataRes.status}`);
-        if (!geoRes.ok) throw new Error(`Failed world.json: ${geoRes.status}`);
-        const [dataJson, geoJson] = await Promise.all([dataRes.json(), geoRes.json()]);
-        if (!alive) return;
-        setData(dataJson);
-        setWorldGeo(geoJson);
-        const q = pickQuestion(dataJson);
-        setQuestion(q);
-      } catch (e) {
-        setError(e.message || String(e));
-      } finally {
-        if (alive) setLoading(false);
-      }
-    })();
-    return () => { alive = false; };
+  let alive = true;
+  (async () => {
+    try {
+      setLoading(true);
+      const [dataRes, geoRes] = await Promise.all([
+        fetch(assetUrl("data/data.json"), { cache: "no-store" }),
+        fetch(GEOJSON_PATH, { cache: "no-store" }),
+      ]);
+      if (!dataRes.ok) throw new Error(`Failed data.json: ${dataRes.status}`);
+      if (!geoRes.ok) throw new Error(`Failed world.json: ${geoRes.status}`);
+
+      const [dataJson, geoJson] = await Promise.all([dataRes.json(), geoRes.json()]);
+      if (!alive) return;
+
+      setData(dataJson);
+      setWorldGeo(geoJson);
+      const q = pickQuestion(dataJson);
+      setQuestion(q);
+    } catch (e) {
+      setError(e.message || String(e));
+    } finally {
+      if (alive) setLoading(false);
+    }
+  })();
+  return () => { alive = false; };
   }, []);
 
   // Fit the map to the full world bounds when GeoJSON loads
@@ -251,7 +256,7 @@ export default function GeoguessrFlashcards() {
                 "
               >
                 <img
-                  src={img.url}
+                  src={`${process.env.PUBLIC_URL}${img.url}`}
                   alt={`Clue ${idx + 1} — ${img.type}`}
                   className="h-full w-full object-cover"
                   loading="lazy"
