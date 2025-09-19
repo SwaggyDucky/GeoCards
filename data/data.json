@@ -276,6 +276,57 @@
         ]
       }
     ]
-  } 
+  },
+  {
+    "country": "France",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/france/bollard.png",
+          "/images/france/bollard (1).png",
+          "/images/france/bollard (2).png",
+          "/images/france/bollard (3).png",
+          "/images/france/bollard (4).png",
+          "/images/france/bollard (5).png",
+          "/images/france/bollard (6).png",
+          "/images/france/bollard (7).png",
+          "/images/france/bollard (8).png",
+          "/images/france/bollard (9).png",
+          "/images/france/bollard (10).png",
+          "/images/france/bollard (11).png",
+          "/images/france/bollard (12).png",
+          "/images/france/bollard (13).png",
+          "/images/france/bollard (14).png"
+        ]
+      },
+      {
+        "type": "telephone_pole",
+        "images": [
+          "/images/france/pole.png",
+          "/images/france/pole (1).png",
+          "/images/france/pole (2).png",
+          "/images/france/pole (3).png",
+          "/images/france/pole (4).png",
+          "/images/france/pole (5).png",
+          "/images/france/pole (6).png"
+        ]
+      },
+      {
+        "type": "yellowSign",
+        "images": [
+          "/images/france/YellowSign (1).png",
+          "/images/france/YellowSign (2).png"
+        ]
+      },
+      {
+        "type": "highway_marker",
+        "images": [
+          "/images/france/hwy1.jpg",
+          "/images/france/hwy2.jpg"
+        ]
+      }
+    ]
+  }  
   
 ]
