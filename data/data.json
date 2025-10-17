@@ -1,5 +1,53 @@
 [
   {
+    "country": "Argentina",
+    "items": [
+      {
+        "type": "barrier",
+        "images": [
+          "/images/Argentina/barrier (1).png",
+          "/images/Argentina/barrier (2).png"
+        ]
+      },
+      {
+        "type": "car",
+        "images": [
+          "/images/Argentina/car (1).png",
+          "/images/Argentina/car (2).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Argentina/chevron (1).png",
+          "/images/Argentina/chevron (2).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/Argentina/hwy (1).png",
+          "/images/Argentina/hwy (2).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/Argentina/pole (1).png",
+          "/images/Argentina/pole (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/Argentina/road (1).png",
+          "/images/Argentina/road (2).png",
+          "/images/Argentina/road (3).png"
+        ]
+      }
+    ]
+  },
+  {
     "country": "Brazil",
     "items": [
       {
@@ -63,6 +111,90 @@
     ]
   },
   {
+    "country": "Guatemala",
+    "items": [
+      {
+        "type": "car",
+        "images": [
+          "/images/guatemala/car (1).png",
+          "/images/guatemala/car (2).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/guatemala/pole (1).png",
+          "/images/guatemala/pole (2).png"
+        ]
+      },
+      {
+        "type": "Road",
+        "images": [
+          "/images/guatemala/Road (1).png",
+          "/images/guatemala/Road (2).png",
+          "/images/guatemala/Road (3).png"
+        ]
+      },
+      {
+        "type": "stop",
+        "images": [
+          "/images/guatemala/stop (1).png",
+          "/images/guatemala/stop (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Iceland",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/iceland/bollard (1).png",
+          "/images/iceland/bollard (2).png",
+          "/images/iceland/bollard (3).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/iceland/chevron (1).png",
+          "/images/iceland/chevron (2).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/iceland/crosswalk (2).png",
+          "/images/iceland/crosswalk.png"
+        ]
+      },
+      {
+        "type": "roadsign",
+        "images": [
+          "/images/iceland/roadsign (1).png",
+          "/images/iceland/roadsign (2).png",
+          "/images/iceland/roadsign (3).png"
+        ]
+      },
+      {
+        "type": "Street",
+        "images": [
+          "/images/iceland/Street (2).png",
+          "/images/iceland/Street.png"
+        ]
+      },
+      {
+        "type": "townSign",
+        "images": [
+          "/images/iceland/townSign (1).png",
+          "/images/iceland/townSign (2).png",
+          "/images/iceland/townSign (3).png"
+        ]
+      }
+    ]
+  },
+  {
     "country": "Italy",
     "items": [
       {
@@ -97,6 +229,55 @@
         "images": [
           "/images/italy/pole (1).png",
           "/images/italy/pole (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Kenya",
+    "items": [
+      {
+        "type": "car",
+        "images": [
+          "/images/Kenya/car (1).jpg",
+          "/images/Kenya/car (2).jpg",
+          "/images/Kenya/car (3).jpg",
+          "/images/Kenya/car (4).jpg",
+          "/images/Kenya/car (5).jpg",
+          "/images/Kenya/car (6).jpg",
+          "/images/Kenya/car (7).jpg"
+        ]
+      },
+      {
+        "type": "chrome_z7a24fOJga",
+        "images": [
+          "/images/Kenya/chrome_z7a24fOJga.png"
+        ]
+      },
+      {
+        "type": "followcar",
+        "images": [
+          "/images/Kenya/followcar (1).png"
+        ]
+      },
+      {
+        "type": "kenya",
+        "images": [
+          "/images/Kenya/kenya1 (1).png",
+          "/images/Kenya/kenya1 (2).png"
+        ]
+      },
+      {
+        "type": "plate",
+        "images": [
+          "/images/Kenya/plate (1).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Kenya/sign (1).png",
+          "/images/Kenya/sign (2).png"
         ]
       }
     ]
@@ -161,6 +342,163 @@
         "type": "stop",
         "images": [
           "/images/Mongolia/stop.png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Spain",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/spain/bollard (1).png",
+          "/images/spain/bollard (2).png",
+          "/images/spain/bollard (3).png",
+          "/images/spain/bollard (4).png",
+          "/images/spain/bollard (5).png",
+          "/images/spain/bollard (6).png",
+          "/images/spain/bollard (7).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/spain/chevron (1).png",
+          "/images/spain/chevron (2).png",
+          "/images/spain/chevron (3).png",
+          "/images/spain/chevron (4).png"
+        ]
+      },
+      {
+        "type": "chrome_pd7lj9hl6n",
+        "images": [
+          "/images/spain/chrome_pd7lj9hl6n.png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/spain/crosswalk (1).png",
+          "/images/spain/crosswalk (2).png",
+          "/images/spain/crosswalk (3).png"
+        ]
+      },
+      {
+        "type": "hunt",
+        "images": [
+          "/images/spain/hunt (1).png",
+          "/images/spain/hunt (2).png",
+          "/images/spain/hunt (3).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/spain/hwy (1).png",
+          "/images/spain/hwy (2).png",
+          "/images/spain/hwy (3).png",
+          "/images/spain/hwy (4).png",
+          "/images/spain/hwy (5).png"
+        ]
+      },
+      {
+        "type": "ijEkzq4AXL",
+        "images": [
+          "/images/spain/ijEkzq4AXL.png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/spain/pole (1).png",
+          "/images/spain/pole (2).png",
+          "/images/spain/pole (3).png"
+        ]
+      },
+      {
+        "type": "rail",
+        "images": [
+          "/images/spain/rail (1).png",
+          "/images/spain/rail (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/spain/road (1).png",
+          "/images/spain/road (2).png"
+        ]
+      },
+      {
+        "type": "Sign",
+        "images": [
+          "/images/spain/Sign (1).png",
+          "/images/spain/Sign (2).png",
+          "/images/spain/Sign (3).png",
+          "/images/spain/Sign (4).png",
+          "/images/spain/Sign (5).png"
+        ]
+      },
+      {
+        "type": "Stop",
+        "images": [
+          "/images/spain/Stop (1).png",
+          "/images/spain/Stop (2).png",
+          "/images/spain/Stop (3).png",
+          "/images/spain/Stop (4).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/spain/street (1).png",
+          "/images/spain/street (2).png",
+          "/images/spain/street (3).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Uruguay",
+    "items": [
+      {
+        "type": "Bollard",
+        "images": [
+          "/images/Uruguay/Bollard (1).png",
+          "/images/Uruguay/Bollard (2).png",
+          "/images/Uruguay/Bollard (3).png",
+          "/images/Uruguay/Bollard (4).png",
+          "/images/Uruguay/Bollard (5).png",
+          "/images/Uruguay/Bollard (6).png"
+        ]
+      },
+      {
+        "type": "chrome_G0HASP3fhh",
+        "images": [
+          "/images/Uruguay/chrome_G0HASP3fhh.png"
+        ]
+      },
+      {
+        "type": "house",
+        "images": [
+          "/images/Uruguay/house (1).png",
+          "/images/Uruguay/house (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/Uruguay/road (1).png",
+          "/images/Uruguay/road (2).png",
+          "/images/Uruguay/road (3).png"
+        ]
+      },
+      {
+        "type": "Sign",
+        "images": [
+          "/images/Uruguay/Sign (1).png",
+          "/images/Uruguay/Sign (2).png"
         ]
       }
     ]
