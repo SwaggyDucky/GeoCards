@@ -1,6 +1,7 @@
 [
   {
     "country": "Argentina",
+    "region": "",
     "items": [
       {
         "type": "barrier",
@@ -49,7 +50,54 @@
   },
   {
     "country": "Brazil",
+    "region": "",
     "items": [
+      {
+        "type": "brazil",
+        "images": [
+          "/images/brazil/brazil (1).png",
+          "/images/brazil/brazil (2).png",
+          "/images/brazil/brazil (3).png",
+          "/images/brazil/brazil (4).png",
+          "/images/brazil/brazil (5).png"
+        ]
+      },
+      {
+        "type": "bus",
+        "images": [
+          "/images/brazil/bus (1).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/brazil/chevron (1).png",
+          "/images/brazil/chevron (2).png"
+        ]
+      },
+      {
+        "type": "chrome_SuaXzjPyxD",
+        "images": [
+          "/images/brazil/chrome_SuaXzjPyxD.png"
+        ]
+      },
+      {
+        "type": "curb",
+        "images": [
+          "/images/brazil/curb (1).png",
+          "/images/brazil/curb (2).png",
+          "/images/brazil/curb (3).png",
+          "/images/brazil/curb (4).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/brazil/hwy (1).png",
+          "/images/brazil/hwy (2).png",
+          "/images/brazil/hwy (3).png"
+        ]
+      },
       {
         "type": "pole",
         "images": [
@@ -58,11 +106,85 @@
           "/images/brazil/pole (3).png",
           "/images/brazil/pole (4).png"
         ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/brazil/road (1).png",
+          "/images/brazil/road (2).png",
+          "/images/brazil/road (3).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/brazil/sign (1).png",
+          "/images/brazil/sign (2).png",
+          "/images/brazil/sign (3).png",
+          "/images/brazil/sign (4).png",
+          "/images/brazil/sign (5).png"
+        ]
+      },
+      {
+        "type": "stopsign",
+        "images": [
+          "/images/brazil/stopsign (1).png",
+          "/images/brazil/stopsign (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Columbia",
+    "region": "",
+    "items": [
+      {
+        "type": "car",
+        "images": [
+          "/images/columbia/car (1).png",
+          "/images/columbia/car (2).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/columbia/hwy (1).png",
+          "/images/columbia/hwy (2).png"
+        ]
+      },
+      {
+        "type": "plate",
+        "images": [
+          "/images/columbia/plate (1).png",
+          "/images/columbia/plate (2).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/columbia/pole (1).png",
+          "/images/columbia/pole (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/columbia/road (1).png",
+          "/images/columbia/road (2).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/columbia/sign (1).png",
+          "/images/columbia/sign (2).png"
+        ]
       }
     ]
   },
   {
     "country": "France",
+    "region": "",
     "items": [
       {
         "type": "bollard",
@@ -112,6 +234,7 @@
   },
   {
     "country": "Guatemala",
+    "region": "",
     "items": [
       {
         "type": "car",
@@ -146,6 +269,7 @@
   },
   {
     "country": "Iceland",
+    "region": "",
     "items": [
       {
         "type": "bollard",
@@ -196,6 +320,7 @@
   },
   {
     "country": "Italy",
+    "region": "",
     "items": [
       {
         "type": "bollard",
@@ -235,6 +360,7 @@
   },
   {
     "country": "Kenya",
+    "region": "",
     "items": [
       {
         "type": "car",
@@ -284,6 +410,7 @@
   },
   {
     "country": "Mongolia",
+    "region": "",
     "items": [
       {
         "type": "bollard",
@@ -347,7 +474,127 @@
     ]
   },
   {
+    "country": "Panama",
+    "region": "",
+    "items": [
+      {
+        "type": "car",
+        "images": [
+          "/images/panama/car (1).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/panama/crosswalk (1).png"
+        ]
+      },
+      {
+        "type": "panama",
+        "images": [
+          "/images/panama/panama (1).png"
+        ]
+      },
+      {
+        "type": "plate",
+        "images": [
+          "/images/panama/plate (1).png",
+          "/images/panama/plate (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/panama/road (1).png",
+          "/images/panama/road (2).png"
+        ]
+      },
+      {
+        "type": "stop",
+        "images": [
+          "/images/panama/stop (1).png"
+        ]
+      },
+      {
+        "type": "taxi",
+        "images": [
+          "/images/panama/taxi (1).png",
+          "/images/panama/taxi (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Russia",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/russia/bollard (1).png",
+          "/images/russia/bollard (2).png",
+          "/images/russia/bollard (3).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/russia/crosswalk (1).png",
+          "/images/russia/crosswalk (2).png",
+          "/images/russia/crosswalk (3).png"
+        ]
+      },
+      {
+        "type": "crosswalkRoad",
+        "images": [
+          "/images/russia/crosswalkRoad (1).png"
+        ]
+      },
+      {
+        "type": "curb",
+        "images": [
+          "/images/russia/curb (1).png",
+          "/images/russia/curb (2).png"
+        ]
+      },
+      {
+        "type": "plate",
+        "images": [
+          "/images/russia/plate (1).png",
+          "/images/russia/plate (2).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/russia/pole (1).png",
+          "/images/russia/pole (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/russia/road (1).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/russia/sign (1).png",
+          "/images/russia/sign (2).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/russia/street (1).png"
+        ]
+      }
+    ]
+  },
+  {
     "country": "Spain",
+    "region": "",
     "items": [
       {
         "type": "bollard",
@@ -368,12 +615,6 @@
           "/images/spain/chevron (2).png",
           "/images/spain/chevron (3).png",
           "/images/spain/chevron (4).png"
-        ]
-      },
-      {
-        "type": "chrome_pd7lj9hl6n",
-        "images": [
-          "/images/spain/chrome_pd7lj9hl6n.png"
         ]
       },
       {
@@ -403,12 +644,6 @@
         ]
       },
       {
-        "type": "ijEkzq4AXL",
-        "images": [
-          "/images/spain/ijEkzq4AXL.png"
-        ]
-      },
-      {
         "type": "pole",
         "images": [
           "/images/spain/pole (1).png",
@@ -420,7 +655,8 @@
         "type": "rail",
         "images": [
           "/images/spain/rail (1).png",
-          "/images/spain/rail (2).png"
+          "/images/spain/rail (2).png",
+          "/images/spain/rail.png"
         ]
       },
       {
@@ -437,7 +673,8 @@
           "/images/spain/Sign (2).png",
           "/images/spain/Sign (3).png",
           "/images/spain/Sign (4).png",
-          "/images/spain/Sign (5).png"
+          "/images/spain/Sign (5).png",
+          "/images/spain/Sign (6).png"
         ]
       },
       {
@@ -460,7 +697,77 @@
     ]
   },
   {
+    "country": "Switzerland",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/switzerland/bollard (1).png",
+          "/images/switzerland/bollard (2).png",
+          "/images/switzerland/bollard (3).png",
+          "/images/switzerland/bollard (4).png",
+          "/images/switzerland/bollard (5).png",
+          "/images/switzerland/bollard (6).png"
+        ]
+      },
+      {
+        "type": "bus",
+        "images": [
+          "/images/switzerland/bus (1).png",
+          "/images/switzerland/bus (2).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/switzerland/chevron (1).png",
+          "/images/switzerland/chevron (2).png",
+          "/images/switzerland/chevron (3).png",
+          "/images/switzerland/chevron (4).png",
+          "/images/switzerland/chevron (5).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/switzerland/crosswalk (1).png",
+          "/images/switzerland/crosswalk (2).png",
+          "/images/switzerland/crosswalk (3).png",
+          "/images/switzerland/crosswalk (4).png"
+        ]
+      },
+      {
+        "type": "plate",
+        "images": [
+          "/images/switzerland/plate (1).png",
+          "/images/switzerland/plate (2).png",
+          "/images/switzerland/plate (3).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/switzerland/road (1).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/switzerland/sign (1).png",
+          "/images/switzerland/sign (2).png",
+          "/images/switzerland/sign (3).png",
+          "/images/switzerland/sign (4).png",
+          "/images/switzerland/sign (5).png",
+          "/images/switzerland/sign (6).png",
+          "/images/switzerland/sign (7).png"
+        ]
+      }
+    ]
+  },
+  {
     "country": "Uruguay",
+    "region": "",
     "items": [
       {
         "type": "Bollard",
@@ -474,9 +781,9 @@
         ]
       },
       {
-        "type": "chrome_G0HASP3fhh",
+        "type": "chevron",
         "images": [
-          "/images/Uruguay/chrome_G0HASP3fhh.png"
+          "/images/Uruguay/chevron.png"
         ]
       },
       {
