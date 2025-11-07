@@ -135,49 +135,49 @@
     ]
   },
   {
-    "country": "Columbia",
+    "country": "Colombia",
     "region": "",
     "items": [
       {
         "type": "car",
         "images": [
-          "/images/columbia/car (1).png",
-          "/images/columbia/car (2).png"
+          "/images/colombia/car (1).png",
+          "/images/colombia/car (2).png"
         ]
       },
       {
         "type": "hwy",
         "images": [
-          "/images/columbia/hwy (1).png",
-          "/images/columbia/hwy (2).png"
+          "/images/colombia/hwy (1).png",
+          "/images/colombia/hwy (2).png"
         ]
       },
       {
         "type": "plate",
         "images": [
-          "/images/columbia/plate (1).png",
-          "/images/columbia/plate (2).png"
+          "/images/colombia/plate (1).png",
+          "/images/colombia/plate (2).png"
         ]
       },
       {
         "type": "pole",
         "images": [
-          "/images/columbia/pole (1).png",
-          "/images/columbia/pole (2).png"
+          "/images/colombia/pole (1).png",
+          "/images/colombia/pole (2).png"
         ]
       },
       {
         "type": "road",
         "images": [
-          "/images/columbia/road (1).png",
-          "/images/columbia/road (2).png"
+          "/images/colombia/road (1).png",
+          "/images/colombia/road (2).png"
         ]
       },
       {
         "type": "sign",
         "images": [
-          "/images/columbia/sign (1).png",
-          "/images/columbia/sign (2).png"
+          "/images/colombia/sign (1).png",
+          "/images/colombia/sign (2).png"
         ]
       }
     ]
