@@ -69,8 +69,12 @@ async function main() {
       .map(([type, images]) => ({ type, images: images.sort(sortLocale) }))
       .sort((a, b) => sortLocale(a.type, b.type));
 
+<<<<<<< HEAD
     // Pre-fill region with an empty string so it can be filled manually later.
     if (items.length) dataset.push({ country: countryName, region: "", items });
+=======
+    if (items.length) dataset.push({ country: countryName, items });
+>>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
   }
 
   dataset.sort((a, b) => sortLocale(a.country, b.country));
@@ -85,4 +89,8 @@ async function main() {
   console.log(`  Countries: ${dataset.length} | Item types: ${itemCount} | Images: ${imageCount}`);
 }
 
+<<<<<<< HEAD
 main().catch(err => { console.error("✖ Failed:", err); process.exit(1); });
+=======
+main().catch(err => { console.error("✖ Failed:", err); process.exit(1); });
+>>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
