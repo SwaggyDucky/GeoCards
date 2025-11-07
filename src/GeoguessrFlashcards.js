@@ -17,16 +17,16 @@ import "leaflet/dist/leaflet.css";
  */
 const BASE = process.env.PUBLIC_URL || "";
 const assetUrl = (p) => `${BASE}${p.startsWith("/") ? p : `/${p}`}`;
-<<<<<<< HEAD
 const DATA_PATH = assetUrl("data/data.json");
 const GEOJSON_PATH = assetUrl("data/world.json");
 const COUNTRY_PROP = "name";
 const ALL_REGIONS = "All regions";
 const ALL_CLUE_TYPES = "All clue types";
-=======
-const GEOJSON_PATH = assetUrl("data/world.json");
-const COUNTRY_PROP = "name";
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
+const COMPACT_VIEWPORT_QUERY = "(max-width: 768px)";
+const isCompactViewport = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia(COMPACT_VIEWPORT_QUERY).matches;
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -41,7 +41,6 @@ function validItems(items) {
   return (items || []).filter((it) => Array.isArray(it.images) && it.images.length > 0);
 }
 
-<<<<<<< HEAD
 function getUniqueTypeItems(items) {
   const seen = new Set();
   const unique = [];
@@ -104,25 +103,6 @@ function buildQuestion(entry, options = {}) {
 
   return {
     correctCountry: entry.country,
-=======
-function pickQuestion(dataset) {
-  // Candidates must have at least 3 distinct item types with >=1 image each
-  const candidates = (dataset || []).filter((entry) => validItems(entry.items).length >= 3);
-  if (candidates.length === 0) {
-    return null;
-  }
-
-  const correct = candidates[Math.floor(Math.random() * candidates.length)];
-  const itemPool = shuffleArray(validItems(correct.items));
-  const chosenItems = itemPool.slice(0, 3);
-  const images = chosenItems.map((it) => {
-    const img = it.images[Math.floor(Math.random() * it.images.length)];
-    return { url: img, type: it.type };
-  });
-
-  return {
-    correctCountry: correct.country,
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
     images,
   };
 }
@@ -193,21 +173,20 @@ export default function GeoguessrFlashcards() {
   const [visibleClues, setVisibleClues] = useState(1);
   const [streak, setStreak] = useState(0);
   const [hoveredCountry, setHoveredCountry] = useState("");
-<<<<<<< HEAD
   const [availableRegions, setAvailableRegions] = useState([]);
   const [availableItemTypes, setAvailableItemTypes] = useState([]);
   const [activeRegion, setActiveRegion] = useState(null);
   const [activeItemType, setActiveItemType] = useState(null);
   const [filterError, setFilterError] = useState(false);
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
+  const initialCompact = useMemo(() => isCompactViewport(), []);
+  const [isCompactLayout, setIsCompactLayout] = useState(initialCompact);
+  const [isMapOpen, setIsMapOpen] = useState(!initialCompact);
 
   const mapRef = useRef(null);
   const leftRef = useRef(null);
   const mapWrapperRef = useRef(null);
   const worldBoundsRef = useRef(null);
 
-<<<<<<< HEAD
   const questionOptions = useMemo(
     () => ({
       region: activeRegion || undefined,
@@ -257,8 +236,6 @@ export default function GeoguessrFlashcards() {
     rerollQuestion();
   }, [rerollQuestion]);
 
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
   // Keyboard shortcuts keep navigation quick.
   useEffect(() => {
     const onKey = (e) => {
@@ -267,12 +244,8 @@ export default function GeoguessrFlashcards() {
       if (key === "enter") {
         nextQuestion();
       } else if (key === "h") {
-<<<<<<< HEAD
         if (!question) return;
         setVisibleClues((n) => Math.min(question.images.length, n + 1));
-=======
-        setVisibleClues((n) => Math.min(question?.images?.length || 3, n + 1));
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
       } else if (key === "r") {
         if (worldBoundsRef.current && mapRef.current) {
           mapRef.current.fitBounds(worldBoundsRef.current, { padding: [20, 20] });
@@ -281,11 +254,7 @@ export default function GeoguessrFlashcards() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-<<<<<<< HEAD
   }, [nextQuestion, question]);
-=======
-  }, [question]);
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
 
   // Load dataset + world geojson on mount.
   useEffect(() => {
@@ -294,11 +263,7 @@ export default function GeoguessrFlashcards() {
       try {
         setLoading(true);
         const [dataRes, geoRes] = await Promise.all([
-<<<<<<< HEAD
           fetch(DATA_PATH, { cache: "no-store" }),
-=======
-          fetch(assetUrl("data/data.json"), { cache: "no-store" }),
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
           fetch(GEOJSON_PATH, { cache: "no-store" }),
         ]);
         if (!dataRes.ok) throw new Error(`Failed data.json: ${dataRes.status}`);
@@ -309,14 +274,9 @@ export default function GeoguessrFlashcards() {
 
         setData(dataJson);
         setWorldGeo(geoJson);
-<<<<<<< HEAD
         setAvailableRegions(getRegions(dataJson));
         setAvailableItemTypes(getItemTypes(dataJson));
         setFilterError(false);
-=======
-        const q = pickQuestion(dataJson);
-        setQuestion(q);
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
       } catch (e) {
         setError(e.message || String(e));
       } finally {
@@ -328,7 +288,6 @@ export default function GeoguessrFlashcards() {
     };
   }, []);
 
-<<<<<<< HEAD
   useEffect(() => {
     if (!data) return;
     rerollQuestion({ resetStats: true });
@@ -339,8 +298,29 @@ export default function GeoguessrFlashcards() {
     setActiveItemType(null);
   }, []);
 
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return undefined;
+    }
+    const media = window.matchMedia(COMPACT_VIEWPORT_QUERY);
+    const handleChange = (event) => {
+      setIsCompactLayout(event.matches);
+      setIsMapOpen(event.matches ? false : true);
+    };
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", handleChange);
+    } else if (typeof media.addListener === "function") {
+      media.addListener(handleChange);
+    }
+    return () => {
+      if (typeof media.removeEventListener === "function") {
+        media.removeEventListener("change", handleChange);
+      } else if (typeof media.removeListener === "function") {
+        media.removeListener(handleChange);
+      }
+    };
+  }, []);
+
   // Keep the map sized with the layout around it.
   useEffect(() => {
     if (!mapRef.current || !leftRef.current) return;
@@ -369,7 +349,6 @@ export default function GeoguessrFlashcards() {
 
   useEffect(() => {
     if (!mapRef.current || !mapWrapperRef.current) return;
-<<<<<<< HEAD
 
     const ro = new ResizeObserver(() => {
       if (mapRef.current) {
@@ -388,33 +367,14 @@ export default function GeoguessrFlashcards() {
   }, [question, visibleClues]);
 
   useEffect(() => {
-    if (!worldGeo || !mapRef.current) return;
-    try {
-      const layer = L.geoJSON(worldGeo);
-      const bounds = layer.getBounds();
-      worldBoundsRef.current = bounds;
-      mapRef.current.fitBounds(bounds, { padding: [20, 20] });
-    } catch (_) {
-      // ignore
-    }
-  }, [worldGeo]);
-=======
-
-    const ro = new ResizeObserver(() => {
+    if (!isMapOpen || !mapRef.current) return undefined;
+    const timeout = setTimeout(() => {
       if (mapRef.current) {
         mapRef.current.invalidateSize();
       }
-    });
-
-    ro.observe(mapWrapperRef.current);
-    return () => ro.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.invalidateSize();
-    }
-  }, [question, visibleClues]);
+    }, 180);
+    return () => clearTimeout(timeout);
+  }, [isMapOpen]);
 
   useEffect(() => {
     if (!worldGeo || !mapRef.current) return;
@@ -427,10 +387,6 @@ export default function GeoguessrFlashcards() {
       // ignore
     }
   }, [worldGeo]);
-
-  const allCountries = useMemo(() => (data ? getCountries(data) : []), [data]);
-  void allCountries;
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
 
   const handleCountryClick = (countryName) => {
     if (selected || !question) return;
@@ -444,18 +400,6 @@ export default function GeoguessrFlashcards() {
     } else {
       setStreak(0);
     }
-<<<<<<< HEAD
-=======
-  };
-
-  const nextQuestion = () => {
-    if (!data) return;
-    const q = pickQuestion(data);
-    setQuestion(q);
-    setSelected(null);
-    setIsCorrect(null);
-    setVisibleClues(1);
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
   };
 
   if (loading) {
@@ -473,34 +417,11 @@ export default function GeoguessrFlashcards() {
             <div className="rounded-3xl border border-white/10 bg-white/10 shadow-[0_24px_60px_-15px_rgba(2,6,23,0.9)]" />
             <div className="rounded-3xl border border-white/10 bg-white/10 shadow-[0_35px_80px_-20px_rgba(0,8,20,0.9)]" />
           </div>
-<<<<<<< HEAD
-=======
         </div>
       </div>
     );
   }
 
-  if (error || !question || !worldGeo) {
-    return (
-      <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 text-slate-100">
-        <div className="mx-auto flex h-full max-w-3xl flex-col items-center justify-center gap-4 px-4 text-center">
-          <h2 className="text-3xl font-bold text-white">Problem loading resources</h2>
-          <p className="text-sm text-slate-200/80">
-            {error || "No valid question could be generated or world.json is missing."}
-          </p>
-          <button
-            onClick={nextQuestion}
-            className="rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-sky-200"
-          >
-            Try Again
-          </button>
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
-        </div>
-      </div>
-    );
-  }
-
-<<<<<<< HEAD
   if (error) {
     return (
       <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 text-slate-100">
@@ -535,8 +456,6 @@ export default function GeoguessrFlashcards() {
     );
   }
 
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
   // Map styling helpers keep the palette consistent.
   const BASE_STROKE = "#E0F2FE";
   const BASE_FILL = "#38BDF8";
@@ -580,11 +499,7 @@ export default function GeoguessrFlashcards() {
       };
     }
 
-<<<<<<< HEAD
     if (!isCorrect && question && name === question.correctCountry) {
-=======
-    if (!isCorrect && name === question.correctCountry) {
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
       return {
         ...base,
         fillColor: CORRECT_FILL,
@@ -629,10 +544,11 @@ export default function GeoguessrFlashcards() {
     }
   };
 
-<<<<<<< HEAD
   const hasQuestion = Boolean(question);
   const totalClues = hasQuestion ? question.images.length : 0;
   const cluesShown = hasQuestion ? Math.min(visibleClues, totalClues) : 0;
+
+
   const canRevealMore = hasQuestion && cluesShown < totalClues;
   const regionLabel = activeRegion || ALL_REGIONS;
   const itemTypeLabel = activeItemType || ALL_CLUE_TYPES;
@@ -651,9 +567,17 @@ export default function GeoguessrFlashcards() {
     }
     return "Hover and click a country to guess";
   })();
+  const mapPanelClasses = [
+    "relative min-w-0 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-[0_35px_80px_-20px_rgba(0,8,20,0.9)] transition-[max-height,opacity,transform] duration-300 ease-out",
+    isCompactLayout
+      ? isMapOpen
+        ? "max-h-[75vh] opacity-100 pointer-events-auto translate-y-0"
+        : "max-h-0 opacity-0 pointer-events-none -translate-y-2"
+      : "h-[420px] xl:h-[78vh] opacity-100 pointer-events-auto",
+  ].join(" ");
+  const mapToggleLabel = isMapOpen ? "Hide map" : "Show map";
+  const mapPanelId = "geo-training-map-panel";
 
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 text-slate-100 overflow-hidden">
       <div className="relative mx-auto flex h-full w-full max-w-[1500px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-10">
@@ -664,16 +588,12 @@ export default function GeoguessrFlashcards() {
 
         <header className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.35em] text-sky-100/80">
-              Geo Deck
-            </p>
-            <h1 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
+            <h1 className="mt-1 text-3xl font-black tracking-tight text-white sm:mt-2 sm:text-4xl">
               Geoguessr Trainer
             </h1>
             <p className="mt-1 max-w-xl text-sm text-slate-200/80">
               Use the visual clues to lock on to the right country. Drag, zoom, and click the map to answer.
             </p>
-<<<<<<< HEAD
             <div className="mt-4 flex flex-wrap items-end gap-3">
               <div className="flex flex-col">
                 <label className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Region</label>
@@ -718,14 +638,6 @@ export default function GeoguessrFlashcards() {
               <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Score</span>
               <span className="text-xl font-bold text-white">{score}</span>
             </div>
-=======
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Score</span>
-              <span className="text-xl font-bold text-white">{score}</span>
-            </div>
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
             <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
               <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Answered</span>
               <span className="text-xl font-bold text-white">{answered}</span>
@@ -737,7 +649,6 @@ export default function GeoguessrFlashcards() {
             <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
               <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Accuracy</span>
               <span className="text-xl font-bold text-white">{answered ? Math.round((score / answered) * 100) : 0}%</span>
-<<<<<<< HEAD
             </div>
             <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
               <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Active Region</span>
@@ -746,8 +657,6 @@ export default function GeoguessrFlashcards() {
             <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
               <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Clue Filter</span>
               <span className="text-sm font-semibold text-white">{itemTypeLabel}</span>
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
             </div>
           </div>
         </header>
@@ -759,32 +668,18 @@ export default function GeoguessrFlashcards() {
           >
             <div className="flex items-center justify-between px-5 pt-5">
               <div>
-<<<<<<< HEAD
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-100/80">Clue Summary</p>
                 <h2 className="text-lg font-bold text-white">Visual Reference</h2>
               </div>
               <span className="rounded-full border border-white/10 bg-sky-500/20 px-3 py-1 text-xs font-semibold text-sky-100">
-                {hasQuestion ? `${cluesShown}/${totalClues}` : "—"}
-=======
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-100/80">Clue Pack</p>
-                <h2 className="text-lg font-bold text-white">Visual intel</h2>
-              </div>
-              <span className="rounded-full border border-white/10 bg-sky-500/20 px-3 py-1 text-xs font-semibold text-sky-100">
-                {visibleClues}/{question.images.length}
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
+                {hasQuestion ? `${cluesShown}/${totalClues}` : "-"}
               </span>
             </div>
 
             <div className="flex-1 space-y-4 overflow-y-auto px-5 pb-5 pt-3">
-<<<<<<< HEAD
               {clueImages.map((img, idx) => (
                 <div
                   key={`${img.url}-${idx}`}
-=======
-              {question.images.slice(0, visibleClues).map((img, idx) => (
-                <div
-                  key={idx}
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
                   className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 shadow-lg"
                 >
                   <img
@@ -796,7 +691,6 @@ export default function GeoguessrFlashcards() {
                 </div>
               ))}
 
-<<<<<<< HEAD
               {showClueSkeleton && (
                 <div className="space-y-4">
                   <div className="h-32 w-full animate-pulse rounded-2xl bg-slate-900/40" />
@@ -834,11 +728,6 @@ export default function GeoguessrFlashcards() {
                       setVisibleClues((n) => Math.min(question.images.length, n + 1));
                     }
                   }}
-=======
-              {visibleClues < question.images.length && (
-                <button
-                  onClick={() => setVisibleClues((n) => Math.min(question.images.length, n + 1))}
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
                   className="w-full rounded-2xl border border-dashed border-sky-400/60 bg-sky-500/10 px-4 py-3 text-sm font-semibold text-sky-100 transition hover:bg-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-200"
                 >
                   Reveal another clue
@@ -849,11 +738,7 @@ export default function GeoguessrFlashcards() {
             <div className="border-t border-white/10 bg-slate-950/50 px-5 py-4 backdrop-blur">
               <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
                 <div className="min-h-[1.25rem] text-sm text-slate-200/90">
-<<<<<<< HEAD
                   {selected && hasQuestion && (
-=======
-                  {selected && (
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
                     <span className={isCorrect ? "text-emerald-300" : "text-rose-300"}>
                       {isCorrect ? "Correct!" : "Not quite."} The answer is <strong>{question.correctCountry}</strong>.
                     </span>
@@ -861,17 +746,12 @@ export default function GeoguessrFlashcards() {
                 </div>
                 <div className="flex w-full items-center gap-2 sm:w-auto">
                   <button
-<<<<<<< HEAD
                     onClick={() => {
                       if (question) {
                         setVisibleClues((n) => Math.min(question.images.length, n + 1));
                       }
                     }}
                     disabled={!canRevealMore}
-=======
-                    onClick={() => setVisibleClues((n) => Math.min(question.images.length, n + 1))}
-                    disabled={visibleClues >= question.images.length}
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
                     className="hidden rounded-2xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-sky-200 disabled:cursor-not-allowed disabled:opacity-40 sm:inline-flex"
                   >
                     Reveal
@@ -887,26 +767,51 @@ export default function GeoguessrFlashcards() {
             </div>
           </div>
 
-          <div
-            ref={mapWrapperRef}
-            className="relative h-[420px] min-w-0 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-[0_35px_80px_-20px_rgba(0,8,20,0.9)] xl:h-[78vh]"
-          >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_60%)]" />
+          <div className="flex flex-col gap-3 xl:gap-4">
+            {isCompactLayout && (
+              <button
+                type="button"
+                onClick={() => setIsMapOpen((open) => !open)}
+                aria-expanded={isMapOpen}
+                aria-controls={mapPanelId}
+                className="flex items-center justify-between rounded-2xl border border-white/15 bg-slate-900/70 px-4 py-3 text-left text-sm font-semibold text-slate-100 shadow-lg transition hover:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-sky-200"
+              >
+                <span className="flex flex-col text-left">
+                  <span>{mapToggleLabel}</span>
+                  <span className="text-xs font-normal text-slate-300">
+                    {isMapOpen ? "Hide the map until you're ready to guess." : "Open the map when you're ready to pick a country."}
+                  </span>
+                </span>
+                <span
+                  className={`ml-3 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/5 transition-transform ${
+                    isMapOpen ? "rotate-180" : ""
+                  }`}
+                  aria-hidden="true"
+                >
+                  <svg
+                    className="h-4 w-4 text-slate-100"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M5 8l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </button>
+            )}
 
-            <div className="absolute left-6 right-6 top-6 z-[400] flex flex-col gap-3 pointer-events-none">
+            <div
+              id={mapPanelId}
+              ref={mapWrapperRef}
+              className={mapPanelClasses}
+              aria-hidden={isCompactLayout && !isMapOpen}
+            >
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_60%)]" />
+
+              <div className="absolute left-6 right-6 top-6 z-[400] flex flex-col gap-3 pointer-events-none">
               <div className="flex flex-wrap items-center justify-between gap-3 pointer-events-auto rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-xs uppercase tracking-wide text-slate-100/80 shadow-lg backdrop-blur">
                 <span>
-<<<<<<< HEAD
                   {statusMessage}
-=======
-                  {hoveredCountry
-                    ? `Hovering: ${hoveredCountry}`
-                    : selected
-                    ? isCorrect
-                      ? "You nailed it!"
-                      : `Answer: ${question.correctCountry}`
-                    : "Hover and click a country to guess"}
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
                 </span>
                 <div className="flex items-center gap-2">
                   <button
@@ -940,11 +845,7 @@ export default function GeoguessrFlashcards() {
 
             <div className="absolute inset-x-6 bottom-6 z-[400] pointer-events-none">
               <div className="flex flex-col gap-3 pointer-events-auto rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-4 text-sm text-slate-100/85 shadow-lg backdrop-blur md:flex-row md:items-center md:justify-between">
-<<<<<<< HEAD
                 <div className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-100/80">Training Guide</div>
-=======
-                <div className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-100/80">Mission Brief</div>
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
                 <p className="text-sm">
                   Drag to pan, scroll or use the buttons to zoom. Press R to reset and H to reveal the next clue.
                 </p>
@@ -970,5 +871,6 @@ export default function GeoguessrFlashcards() {
         </div>
       </div>
     </div>
+  </div>
   );
 }

@@ -1,6 +1,5 @@
 [
   {
-<<<<<<< HEAD
     "country": "Argentina",
     "region": "",
     "items": [
@@ -50,13 +49,10 @@
     ]
   },
   {
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
     "country": "Brazil",
     "region": "",
     "items": [
       {
-<<<<<<< HEAD
         "type": "brazil",
         "images": [
           "/images/brazil/brazil (1).png",
@@ -103,8 +99,6 @@
         ]
       },
       {
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
         "type": "pole",
         "images": [
           "/images/brazil/pole (1).png",
@@ -112,14 +106,8 @@
           "/images/brazil/pole (3).png",
           "/images/brazil/pole (4).png"
         ]
-      }
-    ]
-  },
-  {
-    "country": "France",
-    "items": [
+      },
       {
-<<<<<<< HEAD
         "type": "road",
         "images": [
           "/images/brazil/road (1).png",
@@ -142,55 +130,11 @@
         "images": [
           "/images/brazil/stopsign (1).png",
           "/images/brazil/stopsign (2).png"
-=======
-        "type": "bollard",
-        "images": [
-          "/images/france/bollard (1).png",
-          "/images/france/bollard (2).png",
-          "/images/france/bollard (3).png",
-          "/images/france/bollard (4).png",
-          "/images/france/bollard (5).png",
-          "/images/france/bollard (6).png",
-          "/images/france/bollard (7).png",
-          "/images/france/bollard (8).png",
-          "/images/france/bollard (9).png",
-          "/images/france/bollard (10).png",
-          "/images/france/bollard (11).png",
-          "/images/france/bollard (12).png",
-          "/images/france/bollard (13).png",
-          "/images/france/bollard (14).png"
-        ]
-      },
-      {
-        "type": "hwy",
-        "images": [
-          "/images/france/hwy (1).png"
-        ]
-      },
-      {
-        "type": "pole",
-        "images": [
-          "/images/france/pole (1).png",
-          "/images/france/pole (7).png",
-          "/images/france/pole (8).png",
-          "/images/france/pole (9).png",
-          "/images/france/pole (10).png",
-          "/images/france/pole (11).png",
-          "/images/france/pole (12).png"
-        ]
-      },
-      {
-        "type": "YellowSign",
-        "images": [
-          "/images/france/YellowSign (1).png",
-          "/images/france/YellowSign (2).png"
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
         ]
       }
     ]
   },
   {
-<<<<<<< HEAD
     "country": "Columbia",
     "region": "",
     "items": [
@@ -241,14 +185,10 @@
   {
     "country": "France",
     "region": "",
-=======
-    "country": "Italy",
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
     "items": [
       {
         "type": "bollard",
         "images": [
-<<<<<<< HEAD
           "/images/france/bollard (1).png",
           "/images/france/bollard (2).png",
           "/images/france/bollard (3).png",
@@ -344,22 +284,11 @@
         "images": [
           "/images/iceland/chevron (1).png",
           "/images/iceland/chevron (2).png"
-=======
-          "/images/italy/bollard (1).png",
-          "/images/italy/bollard (2).png",
-          "/images/italy/bollard (3).png",
-          "/images/italy/bollard (4).png",
-          "/images/italy/bollard (5).png",
-          "/images/italy/bollard (6).png",
-          "/images/italy/bollard (7).png",
-          "/images/italy/bollard (8).png"
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
         ]
       },
       {
         "type": "crosswalk",
         "images": [
-<<<<<<< HEAD
           "/images/iceland/crosswalk (2).png",
           "/images/iceland/crosswalk.png"
         ]
@@ -385,30 +314,11 @@
           "/images/iceland/townSign (1).png",
           "/images/iceland/townSign (2).png",
           "/images/iceland/townSign (3).png"
-=======
-          "/images/italy/crosswalk (1).png",
-          "/images/italy/crosswalk (2).png"
-        ]
-      },
-      {
-        "type": "hwy",
-        "images": [
-          "/images/italy/hwy (1).png",
-          "/images/italy/hwy (2).png"
-        ]
-      },
-      {
-        "type": "pole",
-        "images": [
-          "/images/italy/pole (1).png",
-          "/images/italy/pole (2).png"
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
         ]
       }
     ]
   },
   {
-<<<<<<< HEAD
     "country": "Italy",
     "region": "",
     "items": [
@@ -501,9 +411,6 @@
   {
     "country": "Mongolia",
     "region": "",
-=======
-    "country": "Mongolia",
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
     "items": [
       {
         "type": "bollard",
@@ -565,7 +472,6 @@
         ]
       }
     ]
-<<<<<<< HEAD
   },
   {
     "country": "Panama",
@@ -903,7 +809,5 @@
         ]
       }
     ]
-=======
->>>>>>> c65ecf926b4428d3e7795c9741a4c1255bf5cc0f
   }
 ]
