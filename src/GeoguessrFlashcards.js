@@ -377,6 +377,12 @@ export default function GeoguessrFlashcards() {
   }, [isMapOpen]);
 
   useEffect(() => {
+    if (isCompactLayout && !isMapOpen) {
+      mapRef.current = null;
+    }
+  }, [isCompactLayout, isMapOpen]);
+
+  useEffect(() => {
     if (!worldGeo || !mapRef.current) return;
     try {
       const layer = L.geoJSON(worldGeo);
@@ -386,7 +392,7 @@ export default function GeoguessrFlashcards() {
     } catch (_) {
       // ignore
     }
-  }, [worldGeo]);
+  }, [worldGeo, isCompactLayout, isMapOpen]);
 
   const handleCountryClick = (countryName) => {
     if (selected || !question) return;
@@ -567,12 +573,13 @@ export default function GeoguessrFlashcards() {
     }
     return "Hover and click a country to guess";
   })();
+  const clueListLayout = isCompactLayout ? "grid grid-cols-3 gap-3" : "flex flex-col gap-4";
   const mapPanelClasses = [
-    "relative min-w-0 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-[0_35px_80px_-20px_rgba(0,8,20,0.9)] transition-[max-height,opacity,transform] duration-300 ease-out",
+    "relative min-w-0 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-[0_35px_80px_-20px_rgba(0,8,20,0.9)] transition-[max-height,height,opacity,transform] duration-300 ease-out",
     isCompactLayout
       ? isMapOpen
-        ? "max-h-[75vh] opacity-100 pointer-events-auto translate-y-0"
-        : "max-h-0 opacity-0 pointer-events-none -translate-y-2"
+        ? "h-[60vh] max-h-[75vh] min-h-[360px] opacity-100 pointer-events-auto translate-y-0"
+        : "max-h-0 h-0 opacity-0 pointer-events-none -translate-y-2"
       : "h-[420px] xl:h-[78vh] opacity-100 pointer-events-auto",
   ].join(" ");
   const mapToggleLabel = isMapOpen ? "Hide map" : "Show map";
@@ -676,30 +683,32 @@ export default function GeoguessrFlashcards() {
               </span>
             </div>
 
-            <div className="flex-1 space-y-4 overflow-y-auto px-5 pb-5 pt-3">
-              {clueImages.map((img, idx) => (
-                <div
-                  key={`${img.url}-${idx}`}
-                  className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 shadow-lg"
-                >
-                  <img
-                    src={`${process.env.PUBLIC_URL}${img.url}`}
-                    alt={`Clue ${idx + 1} - ${img.type}`}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                </div>
-              ))}
+            <div className="flex-1 overflow-y-auto px-5 pb-5 pt-3">
+              <div className={clueListLayout}>
+                {clueImages.map((img, idx) => (
+                  <div
+                    key={`${img.url}-${idx}`}
+                    className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 shadow-lg aspect-[3/4] sm:aspect-[4/3]"
+                  >
+                    <img
+                      src={`${process.env.PUBLIC_URL}${img.url}`}
+                      alt={`Clue ${idx + 1} - ${img.type}`}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
 
               {showClueSkeleton && (
-                <div className="space-y-4">
+                <div className="mt-4 space-y-4">
                   <div className="h-32 w-full animate-pulse rounded-2xl bg-slate-900/40" />
                   <div className="h-32 w-full animate-pulse rounded-2xl bg-slate-900/30" />
                 </div>
               )}
 
               {showFilterMessage && (
-                <div className="flex flex-col gap-3 rounded-2xl border border-dashed border-sky-400/60 bg-sky-500/10 px-4 py-4 text-sm text-sky-100/90">
+                <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-dashed border-sky-400/60 bg-sky-500/10 px-4 py-4 text-sm text-sky-100/90">
                   <p className="font-semibold">No questions match these filters yet.</p>
                   <p className="text-xs text-slate-200/80">
                     Try another region or clue type to keep the training going.
@@ -728,7 +737,7 @@ export default function GeoguessrFlashcards() {
                       setVisibleClues((n) => Math.min(question.images.length, n + 1));
                     }
                   }}
-                  className="w-full rounded-2xl border border-dashed border-sky-400/60 bg-sky-500/10 px-4 py-3 text-sm font-semibold text-sky-100 transition hover:bg-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-200"
+                  className="mt-4 w-full rounded-2xl border border-dashed border-sky-400/60 bg-sky-500/10 px-4 py-3 text-sm font-semibold text-sky-100 transition hover:bg-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-200"
                 >
                   Reveal another clue
                 </button>
@@ -806,70 +815,36 @@ export default function GeoguessrFlashcards() {
               className={mapPanelClasses}
               aria-hidden={isCompactLayout && !isMapOpen}
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_60%)]" />
+              {(!isCompactLayout || isMapOpen) && (
+                <>
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_60%)]" />
 
-              <div className="absolute left-6 right-6 top-6 z-[400] flex flex-col gap-3 pointer-events-none">
-              <div className="flex flex-wrap items-center justify-between gap-3 pointer-events-auto rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-xs uppercase tracking-wide text-slate-100/80 shadow-lg backdrop-blur">
-                <span>
-                  {statusMessage}
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => handleZoom("out")}
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 text-base font-bold text-white transition hover:bg-white/20 focus:outline-none focus:ring-1 focus:ring-sky-200"
-                    title="Zoom out"
-                  >
-                    -
-                  </button>
-                  <button
-                    onClick={() => handleZoom("in")}
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 text-base font-bold text-white transition hover:bg-white/20 focus:outline-none focus:ring-1 focus:ring-sky-200"
-                    title="Zoom in"
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (worldBoundsRef.current && mapRef.current) {
-                        mapRef.current.fitBounds(worldBoundsRef.current, { padding: [20, 20] });
-                      }
+                  <div className="absolute left-6 right-6 top-6 z-[400] flex flex-col gap-3">
+                    <div className="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-xs uppercase tracking-wide text-slate-100/80 shadow-lg backdrop-blur">
+                      {statusMessage}
+                    </div>
+                  </div>
+
+                  <MapContainer
+                    whenCreated={(map) => {
+                      mapRef.current = map;
                     }}
-                    className="rounded-full border border-white/20 bg-sky-500/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white transition hover:bg-sky-500/40 focus:outline-none focus:ring-1 focus:ring-sky-200"
-                    title="Reset view (R)"
+                    center={[20, 0]}
+                    zoom={2}
+                    minZoom={1}
+                    zoomControl={false}
+                    attributionControl={false}
+                    className="h-full w-full"
+                    scrollWheelZoom={true}
+                    style={{ background: "radial-gradient(circle at top, #0f172a 0%, #020617 75%)" }}
                   >
-                    Reset
-                  </button>
-                </div>
-              </div>
+                    <GeoJSON key={question?.correctCountry || "init"} data={worldGeo} style={getFeatureStyle} onEachFeature={onEachCountry} />
+                  </MapContainer>
+                </>
+              )}
             </div>
-
-            <div className="absolute inset-x-6 bottom-6 z-[400] pointer-events-none">
-              <div className="flex flex-col gap-3 pointer-events-auto rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-4 text-sm text-slate-100/85 shadow-lg backdrop-blur md:flex-row md:items-center md:justify-between">
-                <div className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-100/80">Training Guide</div>
-                <p className="text-sm">
-                  Drag to pan, scroll or use the buttons to zoom. Press R to reset and H to reveal the next clue.
-                </p>
-              </div>
-            </div>
-
-            <MapContainer
-              whenCreated={(map) => {
-                mapRef.current = map;
-              }}
-              center={[20, 0]}
-              zoom={2}
-              minZoom={1}
-              zoomControl={false}
-              attributionControl={false}
-              className="h-full w-full"
-              scrollWheelZoom={true}
-              style={{ background: "radial-gradient(circle at top, #0f172a 0%, #020617 75%)" }}
-            >
-              <GeoJSON key={question?.correctCountry || "init"} data={worldGeo} style={getFeatureStyle} onEachFeature={onEachCountry} />
-            </MapContainer>
           </div>
         </div>
-      </div>
     </div>
   </div>
   );
