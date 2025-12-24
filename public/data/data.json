@@ -49,6 +49,70 @@
     ]
   },
   {
+    "country": "Belgium",
+    "region": "",
+    "items": [
+      {
+        "type": "Bollard",
+        "images": [
+          "/images/Belgium/Bollard (1).png"
+        ]
+      },
+      {
+        "type": "Chevron",
+        "images": [
+          "/images/Belgium/Chevron (1).png",
+          "/images/Belgium/Chevron (2).png"
+        ]
+      },
+      {
+        "type": "Crosswalk",
+        "images": [
+          "/images/Belgium/Crosswalk (1).png"
+        ]
+      },
+      {
+        "type": "Direction",
+        "images": [
+          "/images/Belgium/Direction (1).png",
+          "/images/Belgium/Direction (2).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/Belgium/hwy (1).png",
+          "/images/Belgium/hwy (2).png"
+        ]
+      },
+      {
+        "type": "plate",
+        "images": [
+          "/images/Belgium/plate (1).png",
+          "/images/Belgium/plate (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/Belgium/road (1).png"
+        ]
+      },
+      {
+        "type": "Sign",
+        "images": [
+          "/images/Belgium/Sign (1).png"
+        ]
+      },
+      {
+        "type": "townSign",
+        "images": [
+          "/images/Belgium/townSign (1).png"
+        ]
+      }
+    ]
+  },
+  {
     "country": "Brazil",
     "region": "",
     "items": [
@@ -76,12 +140,6 @@
         ]
       },
       {
-        "type": "chrome_SuaXzjPyxD",
-        "images": [
-          "/images/brazil/chrome_SuaXzjPyxD.png"
-        ]
-      },
-      {
         "type": "curb",
         "images": [
           "/images/brazil/curb (1).png",
@@ -94,8 +152,9 @@
         "type": "hwy",
         "images": [
           "/images/brazil/hwy (1).png",
-          "/images/brazil/hwy (2).png",
-          "/images/brazil/hwy (3).png"
+          "/images/brazil/hwy (4).png",
+          "/images/brazil/hwy (5).png",
+          "/images/brazil/hwy (6).png"
         ]
       },
       {
@@ -126,10 +185,64 @@
         ]
       },
       {
-        "type": "stopsign",
+        "type": "stop",
         "images": [
-          "/images/brazil/stopsign (1).png",
-          "/images/brazil/stopsign (2).png"
+          "/images/brazil/stop (1).png",
+          "/images/brazil/stop (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Bulgaria",
+    "region": "",
+    "items": [
+      {
+        "type": "bus",
+        "images": [
+          "/images/Bulgaria/bus (1).png",
+          "/images/Bulgaria/bus (3).png",
+          "/images/Bulgaria/bus (4).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Bulgaria/chevron (1).png"
+        ]
+      },
+      {
+        "type": "croosswalk",
+        "images": [
+          "/images/Bulgaria/croosswalk (1).png",
+          "/images/Bulgaria/croosswalk (2).png",
+          "/images/Bulgaria/croosswalk (3).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Bulgaria/directionSign (1).png",
+          "/images/Bulgaria/directionSign (2).png",
+          "/images/Bulgaria/directionSign (3).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/Bulgaria/pole (1).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/Bulgaria/street (1).png"
+        ]
+      },
+      {
+        "type": "townSign",
+        "images": [
+          "/images/Bulgaria/townSign (1).png"
         ]
       }
     ]
@@ -183,6 +296,129 @@
     ]
   },
   {
+    "country": "Estonia",
+    "region": "",
+    "items": [
+      {
+        "type": "barrier",
+        "images": [
+          "/images/estonia/barrier (1).png",
+          "/images/estonia/barrier (2).png"
+        ]
+      },
+      {
+        "type": "bollard",
+        "images": [
+          "/images/estonia/bollard (1).png",
+          "/images/estonia/bollard (2).png",
+          "/images/estonia/bollard (3).png"
+        ]
+      },
+      {
+        "type": "bus",
+        "images": [
+          "/images/estonia/bus (1).png",
+          "/images/estonia/bus (2).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/estonia/chevron (1).png",
+          "/images/estonia/chevron (2).png"
+        ]
+      },
+      {
+        "type": "crossWalk",
+        "images": [
+          "/images/estonia/crossWalk (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/estonia/directionSign (1).png",
+          "/images/estonia/directionSign (2).png"
+        ]
+      },
+      {
+        "type": "houseNumber",
+        "images": [
+          "/images/estonia/houseNumber (1).png",
+          "/images/estonia/houseNumber (2).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/estonia/sign (1).png",
+          "/images/estonia/sign (2).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/estonia/street (1).png",
+          "/images/estonia/street (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Finland",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Finland/bollard (1).png",
+          "/images/Finland/bollard (2).png"
+        ]
+      },
+      {
+        "type": "bus",
+        "images": [
+          "/images/Finland/bus (1).png"
+        ]
+      },
+      {
+        "type": "crossWalk",
+        "images": [
+          "/images/Finland/crossWalk (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Finland/directionSign (1).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Finland/sign (1).png",
+          "/images/Finland/sign (2).png",
+          "/images/Finland/sign (3).png",
+          "/images/Finland/sign (4).png",
+          "/images/Finland/sign (5).png"
+        ]
+      },
+      {
+        "type": "snowPole",
+        "images": [
+          "/images/Finland/snowPole (1).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/Finland/street (1).png",
+          "/images/Finland/street (2).png"
+        ]
+      }
+    ]
+  },
+  {
     "country": "France",
     "region": "",
     "items": [
@@ -208,7 +444,9 @@
       {
         "type": "hwy",
         "images": [
-          "/images/france/hwy (1).png"
+          "/images/france/hwy (1).png",
+          "/images/france/hwy (2).png",
+          "/images/france/hwy (3).png"
         ]
       },
       {
@@ -222,12 +460,43 @@
           "/images/france/pole (11).png",
           "/images/france/pole (12).png"
         ]
+      }
+    ]
+  },
+  {
+    "country": "Germany",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Germany/bollard (1).png",
+          "/images/Germany/bollard (2).png"
+        ]
       },
       {
-        "type": "YellowSign",
+        "type": "bus",
         "images": [
-          "/images/france/YellowSign (1).png",
-          "/images/france/YellowSign (2).png"
+          "/images/Germany/bus (1).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Germany/crosswalk (1).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Germany/sign (1).png",
+          "/images/Germany/sign (2).png"
+        ]
+      },
+      {
+        "type": "townSign",
+        "images": [
+          "/images/Germany/townSign (1).png"
         ]
       }
     ]
@@ -294,11 +563,11 @@
         ]
       },
       {
-        "type": "roadsign",
+        "type": "sign",
         "images": [
-          "/images/iceland/roadsign (1).png",
-          "/images/iceland/roadsign (2).png",
-          "/images/iceland/roadsign (3).png"
+          "/images/iceland/sign (1).png",
+          "/images/iceland/sign (2).png",
+          "/images/iceland/sign (3).png"
         ]
       },
       {
@@ -314,6 +583,57 @@
           "/images/iceland/townSign (1).png",
           "/images/iceland/townSign (2).png",
           "/images/iceland/townSign (3).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Ireland",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Ireland/bollard (1).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Ireland/chevron (1).png"
+        ]
+      },
+      {
+        "type": "crossWalk",
+        "images": [
+          "/images/Ireland/crossWalk (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Ireland/directionSign (1).png",
+          "/images/Ireland/directionSign (2).png"
+        ]
+      },
+      {
+        "type": "house",
+        "images": [
+          "/images/Ireland/house (1).png",
+          "/images/Ireland/house (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/Ireland/road (1).png",
+          "/images/Ireland/road (2).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Ireland/sign (1).png"
         ]
       }
     ]
@@ -359,6 +679,43 @@
     ]
   },
   {
+    "country": "Jordan",
+    "region": "",
+    "items": [
+      {
+        "type": "car",
+        "images": [
+          "/images/Jordan/car (1).png",
+          "/images/Jordan/car (2).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Jordan/chevron (1).png"
+        ]
+      },
+      {
+        "type": "curb",
+        "images": [
+          "/images/Jordan/curb (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Jordan/directionSign.png"
+        ]
+      },
+      {
+        "type": "JordanHouse",
+        "images": [
+          "/images/Jordan/JordanHouse (1).png"
+        ]
+      }
+    ]
+  },
+  {
     "country": "Kenya",
     "region": "",
     "items": [
@@ -372,12 +729,6 @@
           "/images/Kenya/car (5).jpg",
           "/images/Kenya/car (6).jpg",
           "/images/Kenya/car (7).jpg"
-        ]
-      },
-      {
-        "type": "chrome_z7a24fOJga",
-        "images": [
-          "/images/Kenya/chrome_z7a24fOJga.png"
         ]
       },
       {
@@ -400,10 +751,148 @@
         ]
       },
       {
+        "type": "road",
+        "images": [
+          "/images/Kenya/road (1).png"
+        ]
+      },
+      {
         "type": "sign",
         "images": [
           "/images/Kenya/sign (1).png",
           "/images/Kenya/sign (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Latvia",
+    "region": "",
+    "items": [
+      {
+        "type": "barrier",
+        "images": [
+          "/images/Latvia/barrier (1).png"
+        ]
+      },
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Latvia/bollard (1).png",
+          "/images/Latvia/bollard (2).png"
+        ]
+      },
+      {
+        "type": "bus",
+        "images": [
+          "/images/Latvia/bus (1).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Latvia/chevron (1).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Latvia/crosswalk (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Latvia/directionSign (1).png"
+        ]
+      },
+      {
+        "type": "houseNumber",
+        "images": [
+          "/images/Latvia/houseNumber (1).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/Latvia/hwy (1).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/Latvia/pole (1).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Latvia/sign (1).png",
+          "/images/Latvia/sign (2).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/Latvia/street (1).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Lithuania",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Lithuania/bollard (1).png",
+          "/images/Lithuania/bollard (2).png"
+        ]
+      },
+      {
+        "type": "bus",
+        "images": [
+          "/images/Lithuania/bus (1).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Lithuania/chevron (1).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Lithuania/crosswalk (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Lithuania/directionSign (1).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/Lithuania/hwy (1).png",
+          "/images/Lithuania/hwy (2).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/Lithuania/pole (1).png",
+          "/images/Lithuania/pole (2).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Lithuania/sign  (1).png",
+          "/images/Lithuania/sign  (2).png"
         ]
       }
     ]
@@ -468,7 +957,240 @@
       {
         "type": "stop",
         "images": [
-          "/images/Mongolia/stop.png"
+          "/images/Mongolia/stop (1).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Netherlands",
+    "region": "",
+    "items": [
+      {
+        "type": "barrier",
+        "images": [
+          "/images/Netherlands/barrier (1).png"
+        ]
+      },
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Netherlands/bollard (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Netherlands/directionSign (1).png",
+          "/images/Netherlands/directionSign (2).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/Netherlands/hwy (1).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/Netherlands/road (1).png",
+          "/images/Netherlands/road (2).png",
+          "/images/Netherlands/road (3).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Netherlands/sign (1).png",
+          "/images/Netherlands/sign (2).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/Netherlands/street (1).png",
+          "/images/Netherlands/street (2).png"
+        ]
+      },
+      {
+        "type": "townSign",
+        "images": [
+          "/images/Netherlands/townSign (1).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Norway",
+    "region": "",
+    "items": [
+      {
+        "type": "barrier",
+        "images": [
+          "/images/Norway/barrier.png"
+        ]
+      },
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Norway/bollard (1).png"
+        ]
+      },
+      {
+        "type": "bus",
+        "images": [
+          "/images/Norway/bus (1).png",
+          "/images/Norway/bus (2).png",
+          "/images/Norway/bus (3).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Norway/chevron (1).png"
+        ]
+      },
+      {
+        "type": "crossWalk",
+        "images": [
+          "/images/Norway/crossWalk (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Norway/directionSign (1).png"
+        ]
+      },
+      {
+        "type": "house",
+        "images": [
+          "/images/Norway/house (1).png"
+        ]
+      },
+      {
+        "type": "MSign",
+        "images": [
+          "/images/Norway/MSign (1).png"
+        ]
+      },
+      {
+        "type": "plate",
+        "images": [
+          "/images/Norway/plate (1).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/Norway/pole (1).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/Norway/road (1).png",
+          "/images/Norway/road (3).png",
+          "/images/Norway/road (4).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Norway/sign (1).png",
+          "/images/Norway/sign (2).png",
+          "/images/Norway/sign (3).png"
+        ]
+      },
+      {
+        "type": "snowPole",
+        "images": [
+          "/images/Norway/snowPole (1).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/Norway/street (1).png",
+          "/images/Norway/street (2).png",
+          "/images/Norway/street (3).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Oman",
+    "region": "",
+    "items": [
+      {
+        "type": "car",
+        "images": [
+          "/images/Oman/car (1).png",
+          "/images/Oman/car (2).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Oman/chevron (1).png"
+        ]
+      },
+      {
+        "type": "crosswalkRoad",
+        "images": [
+          "/images/Oman/crosswalkRoad (1).png"
+        ]
+      },
+      {
+        "type": "curb",
+        "images": [
+          "/images/Oman/curb (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Oman/directionSign.png"
+        ]
+      },
+      {
+        "type": "OmanTrash",
+        "images": [
+          "/images/Oman/OmanTrash.png"
+        ]
+      },
+      {
+        "type": "plate",
+        "images": [
+          "/images/Oman/plate (1).png",
+          "/images/Oman/plate (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/Oman/road (1).png",
+          "/images/Oman/road (2).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Oman/sign (1).png"
+        ]
+      },
+      {
+        "type": "stop",
+        "images": [
+          "/images/Oman/stop (1).png",
+          "/images/Oman/stop (2).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/Oman/street (1).png"
         ]
       }
     ]
@@ -520,6 +1242,172 @@
         "images": [
           "/images/panama/taxi (1).png",
           "/images/panama/taxi (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Poland",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Poland/bollard (1).png",
+          "/images/Poland/bollard (2).png"
+        ]
+      },
+      {
+        "type": "bus",
+        "images": [
+          "/images/Poland/bus (1).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Poland/chevron (1).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Poland/crosswalk (1).png",
+          "/images/Poland/crosswalk (2).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Poland/directionSign.png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/Poland/pole (1).png",
+          "/images/Poland/pole (2).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Poland/sign (1).png",
+          "/images/Poland/sign (2).png",
+          "/images/Poland/sign (3).png",
+          "/images/Poland/sign (4).png"
+        ]
+      },
+      {
+        "type": "townSign",
+        "images": [
+          "/images/Poland/townSign (1).png",
+          "/images/Poland/townSign (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Portugal",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Portugal/bollard (1).png",
+          "/images/Portugal/bollard (2).png",
+          "/images/Portugal/bollard (3).png"
+        ]
+      },
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Portugal/chevron (1).png",
+          "/images/Portugal/chevron (2).png",
+          "/images/Portugal/chevron (3).png"
+        ]
+      },
+      {
+        "type": "crosswalk",
+        "images": [
+          "/images/Portugal/crosswalk (1).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/Portugal/directionSign (1).png"
+        ]
+      },
+      {
+        "type": "hunt",
+        "images": [
+          "/images/Portugal/hunt (1).png"
+        ]
+      },
+      {
+        "type": "hwy",
+        "images": [
+          "/images/Portugal/hwy (1).png",
+          "/images/Portugal/hwy (2).png"
+        ]
+      },
+      {
+        "type": "roundabout",
+        "images": [
+          "/images/Portugal/roundabout (1).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Portugal/sign (1).png",
+          "/images/Portugal/sign (2).png",
+          "/images/Portugal/sign (3).png"
+        ]
+      },
+      {
+        "type": "stop",
+        "images": [
+          "/images/Portugal/stop (1).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Qatar",
+    "region": "",
+    "items": [
+      {
+        "type": "chevron",
+        "images": [
+          "/images/Qatar/chevron (1).png"
+        ]
+      },
+      {
+        "type": "curb",
+        "images": [
+          "/images/Qatar/curb (1).png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/Qatar/pole (1).png",
+          "/images/Qatar/pole (2).png"
+        ]
+      },
+      {
+        "type": "stop",
+        "images": [
+          "/images/Qatar/stop (1).png",
+          "/images/Qatar/stop (2).png"
+        ]
+      },
+      {
+        "type": "worldCup",
+        "images": [
+          "/images/Qatar/worldCup (1).png"
         ]
       }
     ]
@@ -597,6 +1485,14 @@
     "region": "",
     "items": [
       {
+        "type": "barrier",
+        "images": [
+          "/images/spain/barrier (1).png",
+          "/images/spain/barrier (2).png",
+          "/images/spain/barrier (3).png"
+        ]
+      },
+      {
         "type": "bollard",
         "images": [
           "/images/spain/bollard (1).png",
@@ -652,14 +1548,6 @@
         ]
       },
       {
-        "type": "rail",
-        "images": [
-          "/images/spain/rail (1).png",
-          "/images/spain/rail (2).png",
-          "/images/spain/rail.png"
-        ]
-      },
-      {
         "type": "road",
         "images": [
           "/images/spain/road (1).png",
@@ -692,6 +1580,66 @@
           "/images/spain/street (1).png",
           "/images/spain/street (2).png",
           "/images/spain/street (3).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "Sweden",
+    "region": "",
+    "items": [
+      {
+        "type": "bollard",
+        "images": [
+          "/images/Sweden/bollard (1).png",
+          "/images/Sweden/bollard (2).png"
+        ]
+      },
+      {
+        "type": "crososwalk",
+        "images": [
+          "/images/Sweden/crososwalk (1).png",
+          "/images/Sweden/crososwalk (2).png"
+        ]
+      },
+      {
+        "type": "mSign",
+        "images": [
+          "/images/Sweden/mSign.png"
+        ]
+      },
+      {
+        "type": "pole",
+        "images": [
+          "/images/Sweden/pole (1).png",
+          "/images/Sweden/pole (2).png"
+        ]
+      },
+      {
+        "type": "road",
+        "images": [
+          "/images/Sweden/road (1).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/Sweden/sign (1).png",
+          "/images/Sweden/sign (2).png",
+          "/images/Sweden/sign (3).png"
+        ]
+      },
+      {
+        "type": "snowpole",
+        "images": [
+          "/images/Sweden/snowpole (1).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/Sweden/street (1).png",
+          "/images/Sweden/street (2).png"
         ]
       }
     ]
@@ -755,12 +1703,63 @@
         "type": "sign",
         "images": [
           "/images/switzerland/sign (1).png",
-          "/images/switzerland/sign (2).png",
           "/images/switzerland/sign (3).png",
           "/images/switzerland/sign (4).png",
           "/images/switzerland/sign (5).png",
-          "/images/switzerland/sign (6).png",
-          "/images/switzerland/sign (7).png"
+          "/images/switzerland/sign (6).png"
+        ]
+      },
+      {
+        "type": "townSign",
+        "images": [
+          "/images/switzerland/townSign (1).png",
+          "/images/switzerland/townSign (2).png"
+        ]
+      }
+    ]
+  },
+  {
+    "country": "United Arab Emirates",
+    "region": "",
+    "items": [
+      {
+        "type": "crossWalk",
+        "images": [
+          "/images/UAE/crossWalk (1).png",
+          "/images/UAE/crossWalk (2).png"
+        ]
+      },
+      {
+        "type": "curb",
+        "images": [
+          "/images/UAE/curb (1).png",
+          "/images/UAE/curb (2).png"
+        ]
+      },
+      {
+        "type": "directionSign",
+        "images": [
+          "/images/UAE/directionSign (1).png",
+          "/images/UAE/directionSign (2).png",
+          "/images/UAE/directionSign (3).png"
+        ]
+      },
+      {
+        "type": "sign",
+        "images": [
+          "/images/UAE/sign (1).png"
+        ]
+      },
+      {
+        "type": "stopSign",
+        "images": [
+          "/images/UAE/stopSign (1).png"
+        ]
+      },
+      {
+        "type": "street",
+        "images": [
+          "/images/UAE/street (1).png"
         ]
       }
     ]

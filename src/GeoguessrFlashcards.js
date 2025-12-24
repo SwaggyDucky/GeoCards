@@ -159,6 +159,22 @@ function getItemTypes(dataset) {
   return Array.from(typeMap.values()).sort((a, b) => a.localeCompare(b));
 }
 
+function deriveImageName(url = "") {
+  const filename = url.split("/").pop() || "";
+  if (!filename) return "";
+  const withoutExt = filename.replace(/\.[^.]+$/, "");
+  const withoutCounter = withoutExt.replace(/\s*\(\d+\)$/, "");
+  const spaced = withoutCounter
+    .replace(/[_-]+/g, " ")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .trim();
+  if (!spaced) return "";
+  return spaced
+    .split(/\s+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 export default function GeoguessrFlashcards() {
   const [data, setData] = useState(null);
   const [worldGeo, setWorldGeo] = useState(null);
@@ -561,6 +577,7 @@ export default function GeoguessrFlashcards() {
   const showFilterMessage = !hasQuestion && filterError;
   const showClueSkeleton = !hasQuestion && !filterError;
   const clueImages = hasQuestion ? question.images.slice(0, cluesShown) : [];
+  const shouldShowClueNames = Boolean(selected && hasQuestion);
   const statusMessage = (() => {
     if (hoveredCountry) {
       return `Hovering: ${hoveredCountry}`;
@@ -696,6 +713,11 @@ export default function GeoguessrFlashcards() {
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                       loading="lazy"
                     />
+                    {shouldShowClueNames && (
+                      <div className="pointer-events-none absolute inset-x-3 bottom-3 rounded-xl bg-slate-900/70 px-3 py-1 text-center text-[0.65rem] font-semibold uppercase tracking-wide text-slate-100/90 shadow-lg backdrop-blur-sm sm:text-xs md:text-sm">
+                        {deriveImageName(img.url) || img.type}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
