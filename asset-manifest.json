@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/GeoCards/static/css/main.66bac3e5.css",
-    "main.js": "/GeoCards/static/js/main.6f664df6.js",
+    "main.css": "/GeoCards/static/css/main.c6210a96.css",
+    "main.js": "/GeoCards/static/js/main.09203816.js",
     "static/js/453.a36ade34.chunk.js": "/GeoCards/static/js/453.a36ade34.chunk.js",
     "index.html": "/GeoCards/index.html",
-    "main.66bac3e5.css.map": "/GeoCards/static/css/main.66bac3e5.css.map",
-    "main.6f664df6.js.map": "/GeoCards/static/js/main.6f664df6.js.map",
+    "main.c6210a96.css.map": "/GeoCards/static/css/main.c6210a96.css.map",
+    "main.09203816.js.map": "/GeoCards/static/js/main.09203816.js.map",
     "453.a36ade34.chunk.js.map": "/GeoCards/static/js/453.a36ade34.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.66bac3e5.css",
-    "static/js/main.6f664df6.js"
+    "static/css/main.c6210a96.css",
+    "static/js/main.09203816.js"
   ]
 }
