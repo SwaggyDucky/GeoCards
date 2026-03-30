@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { MapContainer, GeoJSON } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { assetUrl, deriveImageName } from "./utils";
 
 /**
  * Geoguessr Trainer -- Map Click Version (GeoJSON)
@@ -15,8 +16,6 @@ import "leaflet/dist/leaflet.css";
  *   public/data/data.json     // your countries & items (see earlier template)
  *   public/data/world.json    // GeoJSON FeatureCollection of countries
  */
-const BASE = process.env.PUBLIC_URL || "";
-const assetUrl = (p) => `${BASE}${p.startsWith("/") ? p : `/${p}`}`;
 const DATA_PATH = assetUrl("data/data.json");
 const GEOJSON_PATH = assetUrl("data/world.json");
 const COUNTRY_PROP = "name";
@@ -27,6 +26,17 @@ const isCompactViewport = () =>
   typeof window !== "undefined" &&
   typeof window.matchMedia === "function" &&
   window.matchMedia(COMPACT_VIEWPORT_QUERY).matches;
+
+// Map styling palette
+const BASE_STROKE = "#E0F2FE";
+const BASE_FILL = "#38BDF8";
+const BASE_FILL_OPACITY = 0.18;
+const HOVER_STROKE = "#60A5FA";
+const HOVER_FILL_OPACITY = 0.35;
+const CORRECT_FILL = "#22C55E";
+const CORRECT_STROKE = "#15803D";
+const WRONG_FILL = "#F87171";
+const WRONG_STROKE = "#B91C1C";
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -159,20 +169,13 @@ function getItemTypes(dataset) {
   return Array.from(typeMap.values()).sort((a, b) => a.localeCompare(b));
 }
 
-function deriveImageName(url = "") {
-  const filename = url.split("/").pop() || "";
-  if (!filename) return "";
-  const withoutExt = filename.replace(/\.[^.]+$/, "");
-  const withoutCounter = withoutExt.replace(/\s*\(\d+\)$/, "");
-  const spaced = withoutCounter
-    .replace(/[_-]+/g, " ")
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .trim();
-  if (!spaced) return "";
-  return spaced
-    .split(/\s+/)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+function StatCard({ label, children }) {
+  return (
+    <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
+      <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">{label}</span>
+      {children}
+    </div>
+  );
 }
 
 export default function GeoguessrFlashcards() {
@@ -248,9 +251,7 @@ export default function GeoguessrFlashcards() {
     [data, questionOptions]
   );
 
-  const nextQuestion = useCallback(() => {
-    rerollQuestion();
-  }, [rerollQuestion]);
+  const nextQuestion = rerollQuestion;
 
   // Keyboard shortcuts keep navigation quick.
   useEffect(() => {
@@ -321,7 +322,7 @@ export default function GeoguessrFlashcards() {
     const media = window.matchMedia(COMPACT_VIEWPORT_QUERY);
     const handleChange = (event) => {
       setIsCompactLayout(event.matches);
-      setIsMapOpen(event.matches ? false : true);
+      setIsMapOpen(!event.matches);
     };
     if (typeof media.addEventListener === "function") {
       media.addEventListener("change", handleChange);
@@ -337,66 +338,26 @@ export default function GeoguessrFlashcards() {
     };
   }, []);
 
-  // Keep the map sized with the layout around it.
+  // Keep the map sized correctly when the layout changes.
   useEffect(() => {
-    if (!mapRef.current || !leftRef.current) return;
-
-    const ro = new ResizeObserver(() => {
-      if (mapRef.current) {
-        mapRef.current.invalidateSize();
-      }
-    });
-
-    ro.observe(leftRef.current);
-
-    const onResize = () => {
-      if (mapRef.current) {
-        mapRef.current.invalidateSize();
-      }
+    const invalidate = () => {
+      if (mapRef.current) mapRef.current.invalidateSize();
     };
 
-    window.addEventListener("resize", onResize);
+    const ro = new ResizeObserver(invalidate);
+    if (leftRef.current) ro.observe(leftRef.current);
+    if (mapWrapperRef.current) ro.observe(mapWrapperRef.current);
 
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", onResize);
-    };
-  }, [worldGeo]);
-
-  useEffect(() => {
-    if (!mapRef.current || !mapWrapperRef.current) return;
-
-    const ro = new ResizeObserver(() => {
-      if (mapRef.current) {
-        mapRef.current.invalidateSize();
-      }
-    });
-
-    ro.observe(mapWrapperRef.current);
     return () => ro.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.invalidateSize();
-    }
-  }, [question, visibleClues]);
+  }, [worldGeo]);
 
   useEffect(() => {
     if (!isMapOpen || !mapRef.current) return undefined;
     const timeout = setTimeout(() => {
-      if (mapRef.current) {
-        mapRef.current.invalidateSize();
-      }
+      if (mapRef.current) mapRef.current.invalidateSize();
     }, 180);
     return () => clearTimeout(timeout);
-  }, [isMapOpen]);
-
-  useEffect(() => {
-    if (isCompactLayout && !isMapOpen) {
-      mapRef.current = null;
-    }
-  }, [isCompactLayout, isMapOpen]);
+  }, [isMapOpen, question, visibleClues]);
 
   useEffect(() => {
     if (!worldGeo || !mapRef.current) return;
@@ -405,8 +366,8 @@ export default function GeoguessrFlashcards() {
       const bounds = layer.getBounds();
       worldBoundsRef.current = bounds;
       mapRef.current.fitBounds(bounds, { padding: [20, 20] });
-    } catch (_) {
-      // ignore
+    } catch (e) {
+      console.warn("fitBounds failed:", e);
     }
   }, [worldGeo, isCompactLayout, isMapOpen]);
 
@@ -478,16 +439,7 @@ export default function GeoguessrFlashcards() {
     );
   }
 
-  // Map styling helpers keep the palette consistent.
-  const BASE_STROKE = "#E0F2FE";
-  const BASE_FILL = "#38BDF8";
-  const BASE_FILL_OPACITY = 0.18;
-  const HOVER_STROKE = "#60A5FA";
-  const HOVER_FILL_OPACITY = 0.35;
-  const CORRECT_FILL = "#22C55E";
-  const CORRECT_STROKE = "#15803D";
-  const WRONG_FILL = "#F87171";
-  const WRONG_STROKE = "#B91C1C";
+  // Map styling uses module-level constants defined above.
 
   const getFeatureStyle = (feature) => {
     const name = feature?.properties?.[COUNTRY_PROP];
@@ -658,30 +610,12 @@ export default function GeoguessrFlashcards() {
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Score</span>
-              <span className="text-xl font-bold text-white">{score}</span>
-            </div>
-            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Answered</span>
-              <span className="text-xl font-bold text-white">{answered}</span>
-            </div>
-            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Streak</span>
-              <span className="text-xl font-bold text-white">{streak}</span>
-            </div>
-            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Accuracy</span>
-              <span className="text-xl font-bold text-white">{answered ? Math.round((score / answered) * 100) : 0}%</span>
-            </div>
-            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Active Region</span>
-              <span className="text-sm font-semibold text-white">{regionLabel}</span>
-            </div>
-            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Clue Filter</span>
-              <span className="text-sm font-semibold text-white">{itemTypeLabel}</span>
-            </div>
+            <StatCard label="Score"><span className="text-xl font-bold text-white">{score}</span></StatCard>
+            <StatCard label="Answered"><span className="text-xl font-bold text-white">{answered}</span></StatCard>
+            <StatCard label="Streak"><span className="text-xl font-bold text-white">{streak}</span></StatCard>
+            <StatCard label="Accuracy"><span className="text-xl font-bold text-white">{answered ? Math.round((score / answered) * 100) : 0}%</span></StatCard>
+            <StatCard label="Active Region"><span className="text-sm font-semibold text-white">{regionLabel}</span></StatCard>
+            <StatCard label="Clue Filter"><span className="text-sm font-semibold text-white">{itemTypeLabel}</span></StatCard>
           </div>
         </header>
 
@@ -708,7 +642,7 @@ export default function GeoguessrFlashcards() {
                     className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 shadow-lg aspect-[3/4] sm:aspect-[4/3]"
                   >
                     <img
-                      src={`${process.env.PUBLIC_URL}${img.url}`}
+                      src={assetUrl(img.url)}
                       alt={`Clue ${idx + 1} - ${img.type}`}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                       loading="lazy"
@@ -848,9 +782,7 @@ export default function GeoguessrFlashcards() {
                   </div>
 
                   <MapContainer
-                    whenCreated={(map) => {
-                      mapRef.current = map;
-                    }}
+                    ref={mapRef}
                     center={[20, 0]}
                     zoom={2}
                     minZoom={1}
