@@ -1,8 +1,14 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { MapContainer, GeoJSON } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { assetUrl, deriveImageName } from "./utils";
+import { assetUrl } from "./utils";
+
+import DeskSurface from "./components/DeskSurface";
+import Corkboard from "./components/Corkboard";
+import ParchmentMap from "./components/ParchmentMap";
+import StatsEnvelope from "./components/StatsEnvelope";
+import FilterDials from "./components/FilterDials";
+import HelpBadge from "./components/HelpBadge";
 
 /**
  * Geoguessr Trainer -- Map Click Version (GeoJSON)
@@ -27,16 +33,16 @@ const isCompactViewport = () =>
   typeof window.matchMedia === "function" &&
   window.matchMedia(COMPACT_VIEWPORT_QUERY).matches;
 
-// Map styling palette
-const BASE_STROKE = "#E0F2FE";
-const BASE_FILL = "#38BDF8";
-const BASE_FILL_OPACITY = 0.18;
-const HOVER_STROKE = "#60A5FA";
-const HOVER_FILL_OPACITY = 0.35;
-const CORRECT_FILL = "#22C55E";
-const CORRECT_STROKE = "#15803D";
-const WRONG_FILL = "#F87171";
-const WRONG_STROKE = "#B91C1C";
+// Map styling palette — parchment theme
+const BASE_STROKE = "#5C4A32";   // ink-faded
+const BASE_FILL = "#F2E8D5";     // parchment
+const BASE_FILL_OPACITY = 0.7;
+const HOVER_STROKE = "#C8A84E";   // brass
+const HOVER_FILL_OPACITY = 0.85;
+const CORRECT_FILL = "#2D5A3E";   // wax-green
+const CORRECT_STROKE = "#1E4030";
+const WRONG_FILL = "#8B2E1E";     // wax-red
+const WRONG_STROKE = "#6B1E12";
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -169,15 +175,6 @@ function getItemTypes(dataset) {
   return Array.from(typeMap.values()).sort((a, b) => a.localeCompare(b));
 }
 
-function StatCard({ label, children }) {
-  return (
-    <div className="flex flex-col rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-lg backdrop-blur">
-      <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">{label}</span>
-      {children}
-    </div>
-  );
-}
-
 export default function GeoguessrFlashcards() {
   const [data, setData] = useState(null);
   const [worldGeo, setWorldGeo] = useState(null);
@@ -200,11 +197,13 @@ export default function GeoguessrFlashcards() {
   const initialCompact = useMemo(() => isCompactViewport(), []);
   const [isCompactLayout, setIsCompactLayout] = useState(initialCompact);
   const [isMapOpen, setIsMapOpen] = useState(!initialCompact);
+  const [sealPosition, setSealPosition] = useState(null);
+  const [blotPosition, setBlotPosition] = useState(null);
 
   const mapRef = useRef(null);
-  const leftRef = useRef(null);
   const mapWrapperRef = useRef(null);
   const worldBoundsRef = useRef(null);
+  const geoJsonLayersRef = useRef({});
 
   const questionOptions = useMemo(
     () => ({
@@ -228,6 +227,8 @@ export default function GeoguessrFlashcards() {
         setSelected(null);
         setIsCorrect(null);
         setVisibleClues(0);
+        setSealPosition(null);
+        setBlotPosition(null);
         if (resetStats) {
           setScore(0);
           setAnswered(0);
@@ -242,6 +243,8 @@ export default function GeoguessrFlashcards() {
       setSelected(null);
       setIsCorrect(null);
       setVisibleClues(1);
+      setSealPosition(null);
+      setBlotPosition(null);
       if (resetStats) {
         setScore(0);
         setAnswered(0);
@@ -252,6 +255,19 @@ export default function GeoguessrFlashcards() {
   );
 
   const nextQuestion = rerollQuestion;
+
+  const getCountryPixelPosition = useCallback((countryName) => {
+    if (!mapRef.current || !countryName) return null;
+    const layer = geoJsonLayersRef.current[countryName];
+    if (!layer) return null;
+    try {
+      const center = layer.getBounds().getCenter();
+      const point = mapRef.current.latLngToContainerPoint(center);
+      return { x: point.x, y: point.y };
+    } catch {
+      return null;
+    }
+  }, []);
 
   // Keyboard shortcuts keep navigation quick.
   useEffect(() => {
@@ -345,7 +361,6 @@ export default function GeoguessrFlashcards() {
     };
 
     const ro = new ResizeObserver(invalidate);
-    if (leftRef.current) ro.observe(leftRef.current);
     if (mapWrapperRef.current) ro.observe(mapWrapperRef.current);
 
     return () => ro.disconnect();
@@ -383,61 +398,17 @@ export default function GeoguessrFlashcards() {
     } else {
       setStreak(0);
     }
+    setTimeout(() => {
+      setSealPosition(getCountryPixelPosition(question.correctCountry));
+      if (!correct) setBlotPosition(getCountryPixelPosition(countryName));
+    }, 50);
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 text-slate-100">
-        <div className="mx-auto flex h-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="h-8 w-48 rounded-full bg-white/10" />
-            <div className="flex items-center gap-3">
-              <div className="h-12 w-20 rounded-2xl bg-white/10" />
-              <div className="h-12 w-24 rounded-2xl bg-white/10" />
-            </div>
-          </div>
-          <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 xl:grid-cols-[minmax(320px,360px),1fr]">
-            <div className="rounded-3xl border border-white/10 bg-white/10 shadow-[0_24px_60px_-15px_rgba(2,6,23,0.9)]" />
-            <div className="rounded-3xl border border-white/10 bg-white/10 shadow-[0_35px_80px_-20px_rgba(0,8,20,0.9)]" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 text-slate-100">
-        <div className="mx-auto flex h-full max-w-3xl flex-col items-center justify-center gap-4 px-4 text-center">
-          <h2 className="text-3xl font-bold text-white">Problem loading resources</h2>
-          <p className="text-sm text-slate-200/80">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-sky-200"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (!worldGeo) {
-    return (
-      <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 text-slate-100">
-        <div className="mx-auto flex h-full max-w-3xl flex-col items-center justify-center gap-4 px-4 text-center">
-          <h2 className="text-3xl font-bold text-white">World map unavailable</h2>
-          <p className="text-sm text-slate-200/80">The GeoJSON file could not be loaded.</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-sky-200"
-          >
-            Reload
-          </button>
-        </div>
-      </div>
-    );
-  }
+  const handleRevealClue = () => {
+    if (question) {
+      setVisibleClues((n) => Math.min(question.images.length, n + 1));
+    }
+  };
 
   // Map styling uses module-level constants defined above.
 
@@ -491,6 +462,8 @@ export default function GeoguessrFlashcards() {
     const name = feature?.properties?.[COUNTRY_PROP];
     if (!name) return;
 
+    geoJsonLayersRef.current[name] = layer;
+
     // no tooltip - highlight outline only on hover
     layer.on({
       click: () => handleCountryClick(name),
@@ -509,297 +482,148 @@ export default function GeoguessrFlashcards() {
     });
   };
 
-  const handleZoom = (direction) => {
-    if (!mapRef.current) return;
-    if (direction === "in") {
-      mapRef.current.zoomIn();
-    } else {
-      mapRef.current.zoomOut();
-    }
-  };
-
   const hasQuestion = Boolean(question);
   const totalClues = hasQuestion ? question.images.length : 0;
   const cluesShown = hasQuestion ? Math.min(visibleClues, totalClues) : 0;
-
-
   const canRevealMore = hasQuestion && cluesShown < totalClues;
   const regionLabel = activeRegion || ALL_REGIONS;
   const itemTypeLabel = activeItemType || ALL_CLUE_TYPES;
-  const showFilterMessage = !hasQuestion && filterError;
-  const showClueSkeleton = !hasQuestion && !filterError;
   const clueImages = hasQuestion ? question.images.slice(0, cluesShown) : [];
-  const shouldShowClueNames = Boolean(selected && hasQuestion);
+
   const statusMessage = (() => {
-    if (hoveredCountry) {
-      return `Hovering: ${hoveredCountry}`;
-    }
-    if (selected) {
-      if (hasQuestion) {
-        return isCorrect ? "You nailed it!" : `Answer: ${question.correctCountry}`;
-      }
-      return "No active question";
-    }
-    return "Hover and click a country to guess";
+    if (hoveredCountry) return hoveredCountry;
+    if (selected && hasQuestion) return isCorrect ? "Well navigated!" : `The correct port was ${question.correctCountry}`;
+    return "Click a country to make your guess";
   })();
-  const clueListLayout = isCompactLayout ? "grid grid-cols-3 gap-3" : "flex flex-col gap-4";
-  const mapPanelClasses = [
-    "relative min-w-0 overflow-hidden rounded-3xl border border-white/10 bg-slate-950/60 shadow-[0_35px_80px_-20px_rgba(0,8,20,0.9)] transition-[max-height,height,opacity,transform] duration-300 ease-out",
-    isCompactLayout
-      ? isMapOpen
-        ? "h-[60vh] max-h-[75vh] min-h-[360px] opacity-100 pointer-events-auto translate-y-0"
-        : "max-h-0 h-0 opacity-0 pointer-events-none -translate-y-2"
-      : "h-[420px] xl:h-[78vh] opacity-100 pointer-events-auto",
-  ].join(" ");
-  const mapToggleLabel = isMapOpen ? "Hide map" : "Show map";
-  const mapPanelId = "geo-training-map-panel";
 
-  return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 text-slate-100 overflow-hidden">
-      <div className="relative mx-auto flex h-full w-full max-w-[1500px] flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-10">
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -top-24 -left-32 h-72 w-72 rounded-full bg-sky-500/30 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-fuchsia-500/20 blur-3xl" />
+  /* Loading state */
+  if (loading) {
+    return (
+      <DeskSurface>
+        <div className="flex h-full items-center justify-center">
+          <p className="animate-pulse font-fell text-xl tracking-wide text-parchment-dark">
+            Unrolling the charts...
+          </p>
         </div>
+      </DeskSurface>
+    );
+  }
 
-        <header className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+  /* Error state */
+  if (error || !worldGeo) {
+    return (
+      <DeskSurface>
+        <div className="flex h-full flex-col items-center justify-center gap-4 px-4 text-center">
+          <h2 className="font-fell text-2xl text-parchment">Charts unavailable</h2>
+          <p className="font-cormorant text-sm italic text-parchment-dark">{error || "The GeoJSON file could not be loaded."}</p>
+          <button onClick={() => window.location.reload()} className="rounded border-2 border-brass bg-parchment px-5 py-2 font-fell text-sm text-ink shadow-[1px_2px_4px_rgba(0,0,0,0.3)] transition-colors hover:bg-parchment-dark">
+            Try Again
+          </button>
+        </div>
+      </DeskSurface>
+    );
+  }
+
+  /* Main layout */
+  return (
+    <DeskSurface>
+      <div className="relative flex h-full w-full flex-col overflow-hidden p-4 md:p-6 lg:p-8">
+        {/* Header */}
+        <header className="mb-4 flex items-start justify-between">
           <div>
-            <h1 className="mt-1 text-3xl font-black tracking-tight text-white sm:mt-2 sm:text-4xl">
-              Geoguessr Trainer
+            <h1 className="animate-title-emboss font-fell text-2xl tracking-wide text-parchment md:text-3xl">
+              The Cartographer's Desk
             </h1>
-            <p className="mt-1 max-w-xl text-sm text-slate-200/80">
-              Use the visual clues to lock on to the right country. Drag, zoom, and click the map to answer.
+            <p className="mt-1 font-cormorant text-sm italic text-parchment-dark">
+              Study the clues. Identify the country.
             </p>
-            <div className="mt-4 flex flex-wrap items-end gap-3">
-              <div className="flex flex-col">
-                <label className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Region</label>
-                <select
-                  className="mt-1 rounded-xl border border-white/20 bg-slate-900/80 px-3 py-2 text-sm text-slate-100 shadow-sm outline-none transition focus:border-sky-300/60 focus:ring-2 focus:ring-sky-200/70 disabled:cursor-not-allowed disabled:opacity-60"
-                  value={regionLabel}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setActiveRegion(value === ALL_REGIONS ? null : value);
-                  }}
-                  disabled={regionOptions.length <= 1}
-                >
-                  {regionOptions.map((region) => (
-                    <option key={region} value={region} className="bg-slate-900 text-slate-100">
-                      {region}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex flex-col">
-                <label className="text-[10px] font-semibold uppercase tracking-wide text-slate-200/70">Clue Type</label>
-                <select
-                  className="mt-1 rounded-xl border border-white/20 bg-slate-900/80 px-3 py-2 text-sm text-slate-100 shadow-sm outline-none transition focus:border-sky-300/60 focus:ring-2 focus:ring-sky-200/70 disabled:cursor-not-allowed disabled:opacity-60"
-                  value={itemTypeLabel}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setActiveItemType(value === ALL_CLUE_TYPES ? null : value);
-                  }}
-                  disabled={itemTypeOptions.length <= 1}
-                >
-                  {itemTypeOptions.map((type) => (
-                    <option key={type} value={type} className="bg-slate-900 text-slate-100">
-                      {type}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <StatCard label="Score"><span className="text-xl font-bold text-white">{score}</span></StatCard>
-            <StatCard label="Answered"><span className="text-xl font-bold text-white">{answered}</span></StatCard>
-            <StatCard label="Streak"><span className="text-xl font-bold text-white">{streak}</span></StatCard>
-            <StatCard label="Accuracy"><span className="text-xl font-bold text-white">{answered ? Math.round((score / answered) * 100) : 0}%</span></StatCard>
-            <StatCard label="Active Region"><span className="text-sm font-semibold text-white">{regionLabel}</span></StatCard>
-            <StatCard label="Clue Filter"><span className="text-sm font-semibold text-white">{itemTypeLabel}</span></StatCard>
+          <div className="flex items-center gap-3">
+            <FilterDials
+              regionOptions={regionOptions}
+              itemTypeOptions={itemTypeOptions}
+              regionLabel={regionLabel}
+              itemTypeLabel={itemTypeLabel}
+              onRegionChange={(v) => setActiveRegion(v === ALL_REGIONS ? null : v)}
+              onItemTypeChange={(v) => setActiveItemType(v === ALL_CLUE_TYPES ? null : v)}
+              isCompactLayout={isCompactLayout}
+            />
           </div>
         </header>
 
-        <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 xl:grid-cols-[minmax(300px,340px),minmax(0,1fr)]">
-          <div
-            ref={leftRef}
-            className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/10 shadow-[0_24px_60px_-15px_rgba(2,6,23,0.9)] backdrop-blur xl:h-[78vh] xl:max-h-[78vh]"
-          >
-            <div className="flex items-center justify-between px-5 pt-5">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-100/80">Clue Summary</p>
-                <h2 className="text-lg font-bold text-white">Visual Reference</h2>
+        {/* Main content */}
+        <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row lg:gap-6">
+          {/* Left column */}
+          <div className="flex w-full flex-shrink-0 flex-col gap-4 lg:w-[28%] lg:max-w-[340px]">
+            <Corkboard
+              clueImages={clueImages}
+              totalClues={totalClues}
+              cluesShown={cluesShown}
+              canRevealMore={canRevealMore}
+              onReveal={handleRevealClue}
+              onNext={nextQuestion}
+              selected={selected}
+              isCorrect={isCorrect}
+              correctCountry={question?.correctCountry}
+              isCompactLayout={isCompactLayout}
+            />
+
+            {filterError && !hasQuestion && (
+              <div className="rounded border border-dashed border-brass/50 bg-parchment/10 p-3 font-cormorant text-sm italic text-parchment">
+                <p>No expeditions match these charts.</p>
+                <button onClick={clearFilters} className="mt-2 text-brass underline">Clear filters</button>
               </div>
-              <span className="rounded-full border border-white/10 bg-sky-500/20 px-3 py-1 text-xs font-semibold text-sky-100">
-                {hasQuestion ? `${cluesShown}/${totalClues}` : "-"}
-              </span>
-            </div>
+            )}
 
-            <div className="flex-1 overflow-y-auto px-5 pb-5 pt-3">
-              <div className={clueListLayout}>
-                {clueImages.map((img, idx) => (
-                  <div
-                    key={`${img.url}-${idx}`}
-                    className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 shadow-lg aspect-[3/4] sm:aspect-[4/3]"
-                  >
-                    <img
-                      src={assetUrl(img.url)}
-                      alt={`Clue ${idx + 1} - ${img.type}`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                      loading="lazy"
-                    />
-                    {shouldShowClueNames && (
-                      <div className="pointer-events-none absolute inset-x-3 bottom-3 rounded-xl bg-slate-900/70 px-3 py-1 text-center text-[0.65rem] font-semibold uppercase tracking-wide text-slate-100/90 shadow-lg backdrop-blur-sm sm:text-xs md:text-sm">
-                        {deriveImageName(img.url) || img.type}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {showClueSkeleton && (
-                <div className="mt-4 space-y-4">
-                  <div className="h-32 w-full animate-pulse rounded-2xl bg-slate-900/40" />
-                  <div className="h-32 w-full animate-pulse rounded-2xl bg-slate-900/30" />
-                </div>
-              )}
-
-              {showFilterMessage && (
-                <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-dashed border-sky-400/60 bg-sky-500/10 px-4 py-4 text-sm text-sky-100/90">
-                  <p className="font-semibold">No questions match these filters yet.</p>
-                  <p className="text-xs text-slate-200/80">
-                    Try another region or clue type to keep the training going.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      onClick={clearFilters}
-                      className="rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-sky-200"
-                    >
-                      Clear filters
-                    </button>
-                    <button
-                      onClick={nextQuestion}
-                      className="rounded-xl border border-sky-300/40 bg-sky-500/20 px-3 py-2 text-xs font-semibold text-sky-100 transition hover:bg-sky-500/30 focus:outline-none focus:ring-2 focus:ring-sky-200"
-                    >
-                      Try again
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {canRevealMore && (
-                <button
-                  onClick={() => {
-                    if (question) {
-                      setVisibleClues((n) => Math.min(question.images.length, n + 1));
-                    }
-                  }}
-                  className="mt-4 w-full rounded-2xl border border-dashed border-sky-400/60 bg-sky-500/10 px-4 py-3 text-sm font-semibold text-sky-100 transition hover:bg-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-200"
-                >
-                  Reveal another clue
-                </button>
-              )}
-            </div>
-
-            <div className="border-t border-white/10 bg-slate-950/50 px-5 py-4 backdrop-blur">
-              <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-                <div className="min-h-[1.25rem] text-sm text-slate-200/90">
-                  {selected && hasQuestion && (
-                    <span className={isCorrect ? "text-emerald-300" : "text-rose-300"}>
-                      {isCorrect ? "Correct!" : "Not quite."} The answer is <strong>{question.correctCountry}</strong>.
-                    </span>
-                  )}
-                </div>
-                <div className="flex w-full items-center gap-2 sm:w-auto">
-                  <button
-                    onClick={() => {
-                      if (question) {
-                        setVisibleClues((n) => Math.min(question.images.length, n + 1));
-                      }
-                    }}
-                    disabled={!canRevealMore}
-                    className="hidden rounded-2xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-sky-200 disabled:cursor-not-allowed disabled:opacity-40 sm:inline-flex"
-                  >
-                    Reveal
-                  </button>
-                  <button
-                    onClick={nextQuestion}
-                    className="w-full rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-sky-200 sm:w-auto"
-                  >
-                    Next Question
-                  </button>
-                </div>
-              </div>
-            </div>
+            <StatsEnvelope
+              score={score}
+              answered={answered}
+              streak={streak}
+              regionLabel={regionLabel}
+              itemTypeLabel={itemTypeLabel}
+            />
           </div>
 
-          <div className="flex flex-col gap-3 xl:gap-4">
+          {/* Right column: map */}
+          <div className="relative min-h-0 flex-1">
             {isCompactLayout && (
               <button
-                type="button"
-                onClick={() => setIsMapOpen((open) => !open)}
+                onClick={() => setIsMapOpen((o) => !o)}
                 aria-expanded={isMapOpen}
-                aria-controls={mapPanelId}
-                className="flex items-center justify-between rounded-2xl border border-white/15 bg-slate-900/70 px-4 py-3 text-left text-sm font-semibold text-slate-100 shadow-lg transition hover:bg-slate-900/90 focus:outline-none focus:ring-2 focus:ring-sky-200"
+                className="mb-3 flex w-full items-center justify-between rounded border-2 border-brass bg-parchment/10 px-4 py-2.5 font-fell text-sm tracking-wide text-parchment shadow-[1px_2px_4px_rgba(0,0,0,0.3)] transition-colors hover:bg-parchment/20"
               >
-                <span className="flex flex-col text-left">
-                  <span>{mapToggleLabel}</span>
-                  <span className="text-xs font-normal text-slate-300">
-                    {isMapOpen ? "Hide the map until you're ready to guess." : "Open the map when you're ready to pick a country."}
-                  </span>
-                </span>
-                <span
-                  className={`ml-3 inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/5 transition-transform ${
-                    isMapOpen ? "rotate-180" : ""
-                  }`}
-                  aria-hidden="true"
-                >
-                  <svg
-                    className="h-4 w-4 text-slate-100"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                <span>{isMapOpen ? "Fold the map" : "Unfold the map"}</span>
+                <span className={`inline-block transition-transform ${isMapOpen ? "rotate-180" : ""}`}>
+                  <svg className="h-4 w-4 text-parchment" viewBox="0 0 20 20" fill="none">
                     <path d="M5 8l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
               </button>
             )}
 
-            <div
-              id={mapPanelId}
-              ref={mapWrapperRef}
-              className={mapPanelClasses}
-              aria-hidden={isCompactLayout && !isMapOpen}
-            >
-              {(!isCompactLayout || isMapOpen) && (
-                <>
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_60%)]" />
-
-                  <div className="absolute left-6 right-6 top-6 z-[400] flex flex-col gap-3">
-                    <div className="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-xs uppercase tracking-wide text-slate-100/80 shadow-lg backdrop-blur">
-                      {statusMessage}
-                    </div>
-                  </div>
-
-                  <MapContainer
-                    ref={mapRef}
-                    center={[20, 0]}
-                    zoom={2}
-                    minZoom={1}
-                    zoomControl={false}
-                    attributionControl={false}
-                    className="h-full w-full"
-                    scrollWheelZoom={true}
-                    style={{ background: "radial-gradient(circle at top, #0f172a 0%, #020617 75%)" }}
-                  >
-                    <GeoJSON key={question?.correctCountry || "init"} data={worldGeo} style={getFeatureStyle} onEachFeature={onEachCountry} />
-                  </MapContainer>
-                </>
-              )}
-            </div>
+            <ParchmentMap
+              mapRef={mapRef}
+              worldGeo={worldGeo}
+              question={question}
+              getFeatureStyle={getFeatureStyle}
+              onEachCountry={onEachCountry}
+              statusMessage={statusMessage}
+              mapWrapperRef={mapWrapperRef}
+              isCompactLayout={isCompactLayout}
+              isMapOpen={isMapOpen}
+              sealPosition={sealPosition}
+              blotPosition={blotPosition}
+              selected={selected}
+              isCorrect={isCorrect}
+            />
           </div>
         </div>
-    </div>
-  </div>
+
+        {/* Help badge */}
+        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8">
+          <HelpBadge />
+        </div>
+      </div>
+    </DeskSurface>
   );
 }
