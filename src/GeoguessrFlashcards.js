@@ -527,7 +527,7 @@ export default function GeoguessrFlashcards() {
   /* Main layout */
   return (
     <DeskSurface>
-      <div className="relative flex h-full w-full flex-col overflow-hidden p-4 md:p-6 lg:p-8">
+      <div className="relative flex h-full w-full flex-col overflow-y-auto p-4 md:p-6 lg:overflow-hidden lg:p-8">
         {/* Header */}
         <header className="mb-4 flex items-start justify-between">
           <div>
@@ -554,7 +554,7 @@ export default function GeoguessrFlashcards() {
         {/* Main content */}
         <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row lg:gap-6">
           {/* Left column */}
-          <div className="flex w-full flex-shrink-0 flex-col gap-4 lg:w-[28%] lg:max-w-[340px]">
+          <div className="flex w-full flex-shrink-0 flex-col gap-4 overflow-y-auto lg:w-[28%] lg:max-w-[340px]">
             <Corkboard
               clueImages={clueImages}
               totalClues={totalClues}
