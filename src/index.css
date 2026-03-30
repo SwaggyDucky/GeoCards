@@ -2,26 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --desk: #2C1E12;
+  --desk-grain: #3A2A1A;
+  --parchment: #F2E8D5;
+  --parchment-dark: #D4C4A8;
+  --ink: #1A1008;
+  --ink-faded: #5C4A32;
+  --brass: #C8A84E;
+  --cork: #B8956A;
+  --cork-dark: #8C6D4F;
+  --wax-green: #2D5A3E;
+  --wax-red: #8B2E1E;
+  --ocean: #D6CBAD;
+}
+
 html, body, #root {
-  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Cormorant Garamond", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #020617;
-  color: #e2e8f0;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  background-color: var(--desk);
+  color: var(--ink);
 }
 
 .leaflet-interactive {
-  transition: fill 0.2s, stroke 0.2s, opacity 0.2s;
+  transition: fill 0.25s ease, stroke 0.25s ease, fill-opacity 0.25s ease;
+}
+
+.leaflet-container {
+  background: var(--ocean) !important;
+}
+
+.clue-photo:nth-child(4n+1) { transform: rotate(-2deg); }
+.clue-photo:nth-child(4n+2) { transform: rotate(1deg); }
+.clue-photo:nth-child(4n+3) { transform: rotate(-1deg); }
+.clue-photo:nth-child(4n+4) { transform: rotate(3deg); }
+
+.clue-photo:nth-child(4n+1) .pushpin { background: #C0392B; }
+.clue-photo:nth-child(4n+2) .pushpin { background: #2E86C1; }
+.clue-photo:nth-child(4n+3) .pushpin { background: #F1C40F; }
+.clue-photo:nth-child(4n+4) .pushpin { background: #27AE60; }
+
+.cork-texture {
+  background:
+    radial-gradient(circle 4px at 20% 30%, var(--cork-dark) 0%, transparent 100%),
+    radial-gradient(circle 8px at 60% 70%, var(--cork-dark) 0%, transparent 100%),
+    radial-gradient(circle 6px at 80% 20%, var(--cork-dark) 0%, transparent 100%),
+    radial-gradient(circle 3px at 40% 80%, var(--cork-dark) 0%, transparent 100%),
+    radial-gradient(circle 5px at 10% 60%, var(--cork-dark) 0%, transparent 100%),
+    linear-gradient(135deg, var(--cork) 0%, var(--cork-dark) 100%);
+  background-size: 40px 40px, 60px 60px, 50px 50px, 35px 35px, 45px 45px, 100% 100%;
+}
+
+.desk-surface {
+  background:
+    radial-gradient(circle at 50% 15%, rgba(200,168,78,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%),
+    repeating-linear-gradient(
+      2deg,
+      var(--desk) 0px, var(--desk) 3px,
+      var(--desk-grain) 3px, var(--desk-grain) 5px,
+      var(--desk) 5px, var(--desk) 9px,
+      var(--desk-grain) 9px, var(--desk-grain) 11px
+    );
+  background-color: var(--desk);
+}
+
+.ruled-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 23px,
+    var(--parchment-dark) 23px, var(--parchment-dark) 24px
+  );
+  background-size: 100% 24px;
+}
+
+@media (max-width: 767px) {
+  html, body, #root { overflow: auto; }
 }

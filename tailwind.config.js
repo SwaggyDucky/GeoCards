@@ -1,10 +1,52 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        desk: { DEFAULT: "#2C1E12", grain: "#3A2A1A" },
+        parchment: { DEFAULT: "#F2E8D5", dark: "#D4C4A8" },
+        ink: { DEFAULT: "#1A1008", faded: "#5C4A32" },
+        brass: "#C8A84E",
+        cork: { DEFAULT: "#B8956A", dark: "#8C6D4F" },
+        "wax-green": "#2D5A3E",
+        "wax-red": "#8B2E1E",
+        ocean: "#D6CBAD",
+      },
+      fontFamily: {
+        fell: ['"IM Fell English SC"', "serif"],
+        cormorant: ['"Cormorant Garamond"', "serif"],
+        courier: ['"Courier Prime"', "monospace"],
+      },
+      animation: {
+        "desk-fade": "deskFade 300ms ease-out both",
+        "map-unroll": "mapUnroll 400ms ease-out 200ms both",
+        "cork-slide": "corkSlide 350ms ease-out 350ms both",
+        "photo-pin": "photoPin 250ms ease-out both",
+        "envelope-drop": "envelopeDrop 350ms cubic-bezier(0.34,1.56,0.64,1) 800ms both",
+        "title-emboss": "titleEmboss 250ms ease-out 1000ms both",
+        "seal-stamp": "sealStamp 300ms ease-out both",
+        "ink-splat": "inkSplat 200ms ease-out both",
+        "flap-open": "flapOpen 300ms ease-out forwards",
+        "flap-close": "flapClose 300ms ease-out forwards",
+        "card-slide-up": "cardSlideUp 300ms ease-out forwards",
+        "card-slide-down": "cardSlideDown 300ms ease-out forwards",
+      },
+      keyframes: {
+        deskFade: { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
+        mapUnroll: { "0%": { opacity: "0", transform: "translateX(40px) rotate(2deg)" }, "100%": { opacity: "1", transform: "translateX(0) rotate(0.5deg)" } },
+        corkSlide: { "0%": { opacity: "0", transform: "translateX(-30px)" }, "100%": { opacity: "1", transform: "translateX(0)" } },
+        photoPin: { "0%": { opacity: "0", transform: "translateY(-8px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        envelopeDrop: { "0%": { opacity: "0", transform: "translateY(20px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        titleEmboss: { "0%": { opacity: "0", textShadow: "none" }, "100%": { opacity: "1", textShadow: "1px 1px 0px rgba(0,0,0,0.4), -1px -1px 0px rgba(255,255,255,0.05)" } },
+        sealStamp: { "0%": { opacity: "0", transform: "scale(0.6)" }, "100%": { opacity: "1", transform: "scale(1)" } },
+        inkSplat: { "0%": { opacity: "0" }, "100%": { opacity: "0.6" } },
+        flapOpen: { "0%": { transform: "rotateX(0deg)" }, "100%": { transform: "rotateX(180deg)" } },
+        flapClose: { "0%": { transform: "rotateX(180deg)" }, "100%": { transform: "rotateX(0deg)" } },
+        cardSlideUp: { "0%": { transform: "translateY(0)", opacity: "0" }, "100%": { transform: "translateY(-100%)", opacity: "1" } },
+        cardSlideDown: { "0%": { transform: "translateY(-100%)", opacity: "1" }, "100%": { transform: "translateY(0)", opacity: "0" } },
+      },
+    },
   },
   plugins: [],
-}
+};
