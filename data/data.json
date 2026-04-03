@@ -1,7 +1,7 @@
 [
   {
     "country": "Argentina",
-    "region": "",
+    "region": "South America",
     "items": [
       {
         "type": "barrier",
@@ -50,29 +50,29 @@
   },
   {
     "country": "Belgium",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
-        "type": "Bollard",
+        "type": "bollard",
         "images": [
           "/images/Belgium/Bollard (1).png"
         ]
       },
       {
-        "type": "Chevron",
+        "type": "chevron",
         "images": [
           "/images/Belgium/Chevron (1).png",
           "/images/Belgium/Chevron (2).png"
         ]
       },
       {
-        "type": "Crosswalk",
+        "type": "crosswalk",
         "images": [
           "/images/Belgium/Crosswalk (1).png"
         ]
       },
       {
-        "type": "Direction",
+        "type": "direction",
         "images": [
           "/images/Belgium/Direction (1).png",
           "/images/Belgium/Direction (2).png"
@@ -99,7 +99,7 @@
         ]
       },
       {
-        "type": "Sign",
+        "type": "sign",
         "images": [
           "/images/Belgium/Sign (1).png"
         ]
@@ -114,10 +114,10 @@
   },
   {
     "country": "Brazil",
-    "region": "",
+    "region": "South America",
     "items": [
       {
-        "type": "brazil",
+        "type": "miscellaneous",
         "images": [
           "/images/brazil/brazil (1).png",
           "/images/brazil/brazil (2).png",
@@ -195,7 +195,7 @@
   },
   {
     "country": "Bulgaria",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bus",
@@ -212,7 +212,7 @@
         ]
       },
       {
-        "type": "croosswalk",
+        "type": "crosswalk",
         "images": [
           "/images/Bulgaria/croosswalk (1).png",
           "/images/Bulgaria/croosswalk (2).png",
@@ -249,7 +249,7 @@
   },
   {
     "country": "Colombia",
-    "region": "",
+    "region": "South America",
     "items": [
       {
         "type": "car",
@@ -297,7 +297,7 @@
   },
   {
     "country": "Estonia",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "barrier",
@@ -329,7 +329,7 @@
         ]
       },
       {
-        "type": "crossWalk",
+        "type": "crosswalk",
         "images": [
           "/images/estonia/crossWalk (1).png"
         ]
@@ -366,7 +366,7 @@
   },
   {
     "country": "Finland",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -382,7 +382,7 @@
         ]
       },
       {
-        "type": "crossWalk",
+        "type": "crosswalk",
         "images": [
           "/images/Finland/crossWalk (1).png"
         ]
@@ -420,7 +420,7 @@
   },
   {
     "country": "France",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -465,7 +465,7 @@
   },
   {
     "country": "Germany",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -503,7 +503,7 @@
   },
   {
     "country": "Guatemala",
-    "region": "",
+    "region": "Central America",
     "items": [
       {
         "type": "car",
@@ -520,7 +520,7 @@
         ]
       },
       {
-        "type": "Road",
+        "type": "road",
         "images": [
           "/images/guatemala/Road (1).png",
           "/images/guatemala/Road (2).png",
@@ -538,7 +538,7 @@
   },
   {
     "country": "Iceland",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -571,7 +571,7 @@
         ]
       },
       {
-        "type": "Street",
+        "type": "street",
         "images": [
           "/images/iceland/Street (2).png",
           "/images/iceland/Street.png"
@@ -589,7 +589,7 @@
   },
   {
     "country": "Ireland",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -604,7 +604,7 @@
         ]
       },
       {
-        "type": "crossWalk",
+        "type": "crosswalk",
         "images": [
           "/images/Ireland/crossWalk (1).png"
         ]
@@ -640,7 +640,7 @@
   },
   {
     "country": "Italy",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -680,7 +680,7 @@
   },
   {
     "country": "Jordan",
-    "region": "",
+    "region": "Middle East",
     "items": [
       {
         "type": "car",
@@ -708,7 +708,7 @@
         ]
       },
       {
-        "type": "JordanHouse",
+        "type": "house",
         "images": [
           "/images/Jordan/JordanHouse (1).png"
         ]
@@ -717,7 +717,7 @@
   },
   {
     "country": "Kenya",
-    "region": "",
+    "region": "Africa",
     "items": [
       {
         "type": "car",
@@ -732,13 +732,13 @@
         ]
       },
       {
-        "type": "followcar",
+        "type": "car",
         "images": [
           "/images/Kenya/followcar (1).png"
         ]
       },
       {
-        "type": "kenya",
+        "type": "miscellaneous",
         "images": [
           "/images/Kenya/kenya1 (1).png",
           "/images/Kenya/kenya1 (2).png"
@@ -767,7 +767,7 @@
   },
   {
     "country": "Latvia",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "barrier",
@@ -841,7 +841,7 @@
   },
   {
     "country": "Lithuania",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -899,7 +899,7 @@
   },
   {
     "country": "Mongolia",
-    "region": "",
+    "region": "Asia",
     "items": [
       {
         "type": "bollard",
@@ -964,7 +964,7 @@
   },
   {
     "country": "Netherlands",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "barrier",
@@ -1023,7 +1023,7 @@
   },
   {
     "country": "Norway",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "barrier",
@@ -1052,7 +1052,7 @@
         ]
       },
       {
-        "type": "crossWalk",
+        "type": "crosswalk",
         "images": [
           "/images/Norway/crossWalk (1).png"
         ]
@@ -1070,7 +1070,7 @@
         ]
       },
       {
-        "type": "MSign",
+        "type": "mSign",
         "images": [
           "/images/Norway/MSign (1).png"
         ]
@@ -1121,7 +1121,7 @@
   },
   {
     "country": "Oman",
-    "region": "",
+    "region": "Middle East",
     "items": [
       {
         "type": "car",
@@ -1137,7 +1137,7 @@
         ]
       },
       {
-        "type": "crosswalkRoad",
+        "type": "crosswalk",
         "images": [
           "/images/Oman/crosswalkRoad (1).png"
         ]
@@ -1155,7 +1155,7 @@
         ]
       },
       {
-        "type": "OmanTrash",
+        "type": "trash",
         "images": [
           "/images/Oman/OmanTrash.png"
         ]
@@ -1197,7 +1197,7 @@
   },
   {
     "country": "Panama",
-    "region": "",
+    "region": "Central America",
     "items": [
       {
         "type": "car",
@@ -1212,7 +1212,7 @@
         ]
       },
       {
-        "type": "panama",
+        "type": "miscellaneous",
         "images": [
           "/images/panama/panama (1).png"
         ]
@@ -1248,7 +1248,7 @@
   },
   {
     "country": "Poland",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -1309,7 +1309,7 @@
   },
   {
     "country": "Portugal",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -1340,7 +1340,7 @@
         ]
       },
       {
-        "type": "hunt",
+        "type": "miscellaneous",
         "images": [
           "/images/Portugal/hunt (1).png"
         ]
@@ -1376,7 +1376,7 @@
   },
   {
     "country": "Qatar",
-    "region": "",
+    "region": "Middle East",
     "items": [
       {
         "type": "chevron",
@@ -1405,7 +1405,7 @@
         ]
       },
       {
-        "type": "worldCup",
+        "type": "miscellaneous",
         "images": [
           "/images/Qatar/worldCup (1).png"
         ]
@@ -1414,7 +1414,7 @@
   },
   {
     "country": "Russia",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -1433,7 +1433,7 @@
         ]
       },
       {
-        "type": "crosswalkRoad",
+        "type": "crosswalk",
         "images": [
           "/images/russia/crosswalkRoad (1).png"
         ]
@@ -1482,7 +1482,7 @@
   },
   {
     "country": "Spain",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "barrier",
@@ -1522,7 +1522,7 @@
         ]
       },
       {
-        "type": "hunt",
+        "type": "miscellaneous",
         "images": [
           "/images/spain/hunt (1).png",
           "/images/spain/hunt (2).png",
@@ -1555,7 +1555,7 @@
         ]
       },
       {
-        "type": "Sign",
+        "type": "sign",
         "images": [
           "/images/spain/Sign (1).png",
           "/images/spain/Sign (2).png",
@@ -1566,7 +1566,7 @@
         ]
       },
       {
-        "type": "Stop",
+        "type": "stop",
         "images": [
           "/images/spain/Stop (1).png",
           "/images/spain/Stop (2).png",
@@ -1586,7 +1586,7 @@
   },
   {
     "country": "Sweden",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -1596,7 +1596,7 @@
         ]
       },
       {
-        "type": "crososwalk",
+        "type": "crosswalk",
         "images": [
           "/images/Sweden/crososwalk (1).png",
           "/images/Sweden/crososwalk (2).png"
@@ -1630,7 +1630,7 @@
         ]
       },
       {
-        "type": "snowpole",
+        "type": "snowPole",
         "images": [
           "/images/Sweden/snowpole (1).png"
         ]
@@ -1646,7 +1646,7 @@
   },
   {
     "country": "Switzerland",
-    "region": "",
+    "region": "Europe",
     "items": [
       {
         "type": "bollard",
@@ -1720,10 +1720,10 @@
   },
   {
     "country": "United Arab Emirates",
-    "region": "",
+    "region": "Middle East",
     "items": [
       {
-        "type": "crossWalk",
+        "type": "crosswalk",
         "images": [
           "/images/UAE/crossWalk (1).png",
           "/images/UAE/crossWalk (2).png"
@@ -1751,7 +1751,7 @@
         ]
       },
       {
-        "type": "stopSign",
+        "type": "stop",
         "images": [
           "/images/UAE/stopSign (1).png"
         ]
@@ -1766,10 +1766,10 @@
   },
   {
     "country": "Uruguay",
-    "region": "",
+    "region": "South America",
     "items": [
       {
-        "type": "Bollard",
+        "type": "bollard",
         "images": [
           "/images/Uruguay/Bollard (1).png",
           "/images/Uruguay/Bollard (2).png",
@@ -1801,7 +1801,7 @@
         ]
       },
       {
-        "type": "Sign",
+        "type": "sign",
         "images": [
           "/images/Uruguay/Sign (1).png",
           "/images/Uruguay/Sign (2).png"
