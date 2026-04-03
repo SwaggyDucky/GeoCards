@@ -6,7 +6,6 @@ import { assetUrl } from "./utils";
 import DeskSurface from "./components/DeskSurface";
 import Corkboard from "./components/Corkboard";
 import ParchmentMap from "./components/ParchmentMap";
-import StatsEnvelope from "./components/StatsEnvelope";
 import FilterDials from "./components/FilterDials";
 import HelpBadge from "./components/HelpBadge";
 
@@ -197,8 +196,8 @@ export default function GeoguessrFlashcards() {
   const initialCompact = useMemo(() => isCompactViewport(), []);
   const [isCompactLayout, setIsCompactLayout] = useState(initialCompact);
   const [isMapOpen, setIsMapOpen] = useState(!initialCompact);
-  const [sealPosition, setSealPosition] = useState(null);
-  const [blotPosition, setBlotPosition] = useState(null);
+  const [sealLatLng, setSealLatLng] = useState(null);
+  const [blotLatLng, setBlotLatLng] = useState(null);
 
   const mapRef = useRef(null);
   const mapWrapperRef = useRef(null);
@@ -227,8 +226,8 @@ export default function GeoguessrFlashcards() {
         setSelected(null);
         setIsCorrect(null);
         setVisibleClues(0);
-        setSealPosition(null);
-        setBlotPosition(null);
+        setSealLatLng(null);
+        setBlotLatLng(null);
         if (resetStats) {
           setScore(0);
           setAnswered(0);
@@ -243,8 +242,8 @@ export default function GeoguessrFlashcards() {
       setSelected(null);
       setIsCorrect(null);
       setVisibleClues(1);
-      setSealPosition(null);
-      setBlotPosition(null);
+      setSealLatLng(null);
+      setBlotLatLng(null);
       if (resetStats) {
         setScore(0);
         setAnswered(0);
@@ -256,14 +255,12 @@ export default function GeoguessrFlashcards() {
 
   const nextQuestion = rerollQuestion;
 
-  const getCountryPixelPosition = useCallback((countryName) => {
-    if (!mapRef.current || !countryName) return null;
+  const getCountryCenter = useCallback((countryName) => {
     const layer = geoJsonLayersRef.current[countryName];
     if (!layer) return null;
     try {
       const center = layer.getBounds().getCenter();
-      const point = mapRef.current.latLngToContainerPoint(center);
-      return { x: point.x, y: point.y };
+      return [center.lat, center.lng];
     } catch {
       return null;
     }
@@ -398,10 +395,8 @@ export default function GeoguessrFlashcards() {
     } else {
       setStreak(0);
     }
-    setTimeout(() => {
-      setSealPosition(getCountryPixelPosition(question.correctCountry));
-      if (!correct) setBlotPosition(getCountryPixelPosition(countryName));
-    }, 50);
+    setSealLatLng(getCountryCenter(question.correctCountry));
+    if (!correct) setBlotLatLng(getCountryCenter(countryName));
   };
 
   const handleRevealClue = () => {
@@ -554,7 +549,7 @@ export default function GeoguessrFlashcards() {
         {/* Main content */}
         <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row lg:gap-6">
           {/* Left column */}
-          <div className="flex w-full flex-shrink-0 flex-col gap-4 overflow-y-auto lg:w-[28%] lg:max-w-[340px]">
+          <div className="flex w-full flex-shrink-0 flex-col gap-4 lg:w-[28%] lg:max-w-[340px]">
             <Corkboard
               clueImages={clueImages}
               totalClues={totalClues}
@@ -565,7 +560,6 @@ export default function GeoguessrFlashcards() {
               selected={selected}
               isCorrect={isCorrect}
               correctCountry={question?.correctCountry}
-              isCompactLayout={isCompactLayout}
             />
 
             {filterError && !hasQuestion && (
@@ -575,17 +569,10 @@ export default function GeoguessrFlashcards() {
               </div>
             )}
 
-            <StatsEnvelope
-              score={score}
-              answered={answered}
-              streak={streak}
-              regionLabel={regionLabel}
-              itemTypeLabel={itemTypeLabel}
-            />
           </div>
 
           {/* Right column: map */}
-          <div className="relative min-h-0 flex-1">
+          <div className="relative min-h-[400px] flex-1 lg:min-h-0">
             {isCompactLayout && (
               <button
                 onClick={() => setIsMapOpen((o) => !o)}
@@ -611,8 +598,8 @@ export default function GeoguessrFlashcards() {
               mapWrapperRef={mapWrapperRef}
               isCompactLayout={isCompactLayout}
               isMapOpen={isMapOpen}
-              sealPosition={sealPosition}
-              blotPosition={blotPosition}
+              sealLatLng={sealLatLng}
+              blotLatLng={blotLatLng}
               selected={selected}
               isCorrect={isCorrect}
             />

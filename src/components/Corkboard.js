@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import CluePhoto from "./CluePhoto";
 
 export default function Corkboard({
@@ -10,9 +11,22 @@ export default function Corkboard({
   selected,
   isCorrect,
   correctCountry,
-  isCompactLayout,
 }) {
   const showLabels = Boolean(selected);
+  const [featuredIdx, setFeaturedIdx] = useState(0);
+  const hasAnimated = useRef(false);
+
+  // Reset featured and allow animation on new question
+  useEffect(() => {
+    setFeaturedIdx(0);
+    hasAnimated.current = false;
+    // After a short delay, mark animation as done so swaps don't re-trigger it
+    const t = setTimeout(() => { hasAnimated.current = true; }, 1200);
+    return () => clearTimeout(t);
+  }, [correctCountry]);
+
+  const shouldAnimate = !hasAnimated.current;
+  const featured = clueImages[featuredIdx] || clueImages[0];
 
   return (
     <div className="animate-cork-slide flex flex-col">
@@ -24,15 +38,42 @@ export default function Corkboard({
           </span>
         </div>
 
-        <div className={`gap-3 p-3 ${isCompactLayout ? "grid grid-cols-3" : "flex flex-col"}`}>
-          {clueImages.map((img, idx) => (
+        <div className="p-3">
+          {/* Featured large photo */}
+          {featured && (
             <CluePhoto
-              key={`${img.url}-${idx}`}
-              image={img}
-              index={idx}
+              key={`featured-${featured.url}`}
+              image={featured}
+              index={featuredIdx}
               showLabel={showLabels}
+              featured
+              animate={shouldAnimate}
             />
-          ))}
+          )}
+
+          {/* Thumbnail row */}
+          {clueImages.length > 1 && (
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              {clueImages.map((img, idx) => {
+                if (idx === featuredIdx) return null;
+                return (
+                  <button
+                    key={`thumb-${img.url}-${idx}`}
+                    onClick={() => setFeaturedIdx(idx)}
+                    className="cursor-pointer rounded-sm opacity-75 transition-all hover:opacity-100"
+                  >
+                    <CluePhoto
+                      image={img}
+                      index={idx}
+                      showLabel={showLabels}
+                      featured={false}
+                      animate={shouldAnimate}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {canRevealMore && (

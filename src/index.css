@@ -83,6 +83,15 @@ body {
   background-size: 100% 24px;
 }
 
+.wax-seal-marker,
+.wax-seal-marker ~ img {
+  /* hide default leaflet marker shadow */
+}
+.leaflet-marker-icon {
+  background: none !important;
+  border: none !important;
+}
+
 @media (max-width: 767px) {
   html, body, #root { overflow: auto; }
 }

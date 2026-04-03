@@ -26,8 +26,8 @@ export default function ParchmentMap({
   mapWrapperRef,
   isCompactLayout,
   isMapOpen,
-  sealPosition,
-  blotPosition,
+  sealLatLng,
+  blotLatLng,
   selected,
   isCorrect,
 }) {
@@ -37,7 +37,7 @@ export default function ParchmentMap({
       ? isMapOpen
         ? "h-[60vh] max-h-[75vh] min-h-[360px] opacity-100 pointer-events-auto translate-y-0"
         : "max-h-0 h-0 opacity-0 pointer-events-none -translate-y-2"
-      : "h-full opacity-100 pointer-events-auto animate-map-unroll",
+      : "h-full min-h-[360px] opacity-100 pointer-events-auto animate-map-unroll",
   ].join(" ");
 
   return (
@@ -68,15 +68,14 @@ export default function ParchmentMap({
               style={getFeatureStyle}
               onEachFeature={onEachCountry}
             />
+            {selected && isCorrect && <WaxSeal latLng={sealLatLng} />}
+            {selected && !isCorrect && (
+              <>
+                <InkBlot latLng={blotLatLng} />
+                <WaxSeal latLng={sealLatLng} />
+              </>
+            )}
           </MapContainer>
-
-          {selected && isCorrect && <WaxSeal x={sealPosition?.x} y={sealPosition?.y} />}
-          {selected && !isCorrect && (
-            <>
-              <InkBlot x={blotPosition?.x} y={blotPosition?.y} />
-              <WaxSeal x={sealPosition?.x} y={sealPosition?.y} />
-            </>
-          )}
         </>
       )}
     </div>
